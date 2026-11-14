@@ -33,6 +33,10 @@ Gestor de stock y ventas para almacenes y kioscos chilenos. App de escritorio qu
 |---|---|
 | ![Productos](docs/productos.png) | ![Stock](docs/stock.png) |
 
+## Descargar
+
+Instalador para Windows y AppImage para Linux en [Releases](https://github.com/blehgk/bodega/releases).
+
 ## Correrlo
 
 ```bash
@@ -42,6 +46,8 @@ npm test      # 17 tests de la capa de datos
 ```
 
 En Linux dentro de un contenedor sin sandbox configurado: `npx electron . --no-sandbox`.
+
+Empaquetado: `npm run dist:win` (instalador NSIS) y `npm run dist:linux` (AppImage).
 
 ## Cómo se guardan los datos
 
