@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "src/renderer/index.html"
+        ],
+        "createdAt": "2026-11-14T02:44:20.954Z",
+        "reason": "User confirmed: the almanaque skin is newsprint paper by design (PRODUCT.md, README 'Diseño'); it is 1 of 11 skins and the other 10 are not cream"
+      }
+    ]
+  }
+}

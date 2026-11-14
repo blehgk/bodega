@@ -2,6 +2,12 @@
 
 Todas las versiones publicadas de Bodega. El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa [versionado semántico](https://semver.org/lang/es/).
 
+## [0.4.1] — 2026-11-14
+
+### Corregido
+
+- El diálogo traía un borde superior de 4px que peleaba con las esquinas redondeadas de las pieles iOS, Samsung, Material, Glass, Neumorfismo, Fluent y Terminal. El acento pasa al título, donde se lee igual y no depende del radio.
+
 ## [0.4.0] — 2026-11-14
 
 ### Agregado
