@@ -20,11 +20,23 @@ function leerArchivo(archivo) {
 function crearDb(archivo) {
   let estado = leerArchivo(archivo);
 
+  // Si el disco no acepta el cambio (lleno, sin permisos, pendrive desconectado),
+  // la memoria vuelve a lo que sí está guardado. Nunca se muestra una venta que
+  // el archivo no tiene.
   const guardar = () => {
-    fs.mkdirSync(path.dirname(archivo), { recursive: true });
-    const temporal = `${archivo}.tmp`;
-    fs.writeFileSync(temporal, JSON.stringify(estado));
-    fs.renameSync(temporal, archivo); // rename atómico: nunca queda un archivo a medias
+    try {
+      fs.mkdirSync(path.dirname(archivo), { recursive: true });
+      const temporal = `${archivo}.tmp`;
+      fs.writeFileSync(temporal, JSON.stringify(estado));
+      fs.renameSync(temporal, archivo); // rename atómico: nunca queda un archivo a medias
+    } catch (e) {
+      try {
+        estado = leerArchivo(archivo);
+      } catch {
+        // si ni siquiera se puede releer, se deja la memoria como estaba
+      }
+      throw new Error(`No se pudo guardar en el disco: ${e.code || e.message}. El último cambio no quedó registrado.`);
+    }
   };
 
   return {

@@ -7,6 +7,7 @@ import { avisar } from '../ui/aviso.js';
 import { S, bd, mutar } from '../ui/estado.js';
 
 let esperado = 0; // se guarda para recalcular la diferencia sin repintar el panel
+let ultimoCierre = null; // el cierre ya guardado de hoy, si lo hay
 
 export async function pintar() {
   const fecha = isoLocal(new Date());
@@ -15,6 +16,7 @@ export async function pintar() {
 
   const c = r.data;
   esperado = c.esperado;
+  ultimoCierre = c.guardado;
 
   $('#cierre-fecha').textContent = new Date().toLocaleDateString('es-CL', {
     weekday: 'long', day: 'numeric', month: 'long',
@@ -65,6 +67,10 @@ export async function pintar() {
 
   $('#guardar-cierre').addEventListener('click', async () => {
     const monto = pesosAcentavos($('#contado').value);
+
+    // Volver a cerrar el mismo día reemplaza lo anterior: se avisa antes, no después.
+    if (ultimoCierre && !confirm(`El ${fecha} ya tiene un cierre guardado con ${plata(ultimoCierre.contado)} contados.\n\n¿Reemplazarlo por ${plata(monto)}?`)) return;
+
     if (await mutar(bd.guardarCierre(fecha, monto))) {
       avisar('Cierre guardado');
       pintar();

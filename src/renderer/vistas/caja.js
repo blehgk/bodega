@@ -23,7 +23,9 @@ const descuento = () => Math.min(pesosAcentavos($('#descuento').value), subtotal
 
 export function pintar() {
   pintarSelectorCliente();
-  const lista = visibles().slice(0, 60);
+  const todas = visibles();
+  const lista = todas.slice(0, S.limite);
+  pintarCuenta(lista.length, todas.length);
 
   $('#grilla').innerHTML = lista.length
     ? lista.map((p) => `
@@ -33,10 +35,15 @@ export function pintar() {
         <span class="n">${esc(p.nombre)}</span>
         <span class="p">${plata(p.precio)}</span>
       </button>`).join('')
-    : `<div class="vacio-panel">
-         <p>Sin resultados para “${esc(S.filtro)}”</p>
-         <button class="secundario chico" data-limpiar-busqueda>Ver todo</button>
-       </div>`;
+    : S.datos.productos.length === 0
+      ? `<div class="vacio-panel">
+           <p>Todavía no hay productos cargados.</p>
+           <button class="secundario chico" data-ir-productos>Cargar el primer producto</button>
+         </div>`
+      : `<div class="vacio-panel">
+           <p>Ningún producto coincide con “${esc(S.filtro)}”.</p>
+           <button class="secundario chico" data-limpiar-busqueda>Ver todo</button>
+         </div>`;
 
   pintarCarrito();
 
@@ -55,10 +62,24 @@ function pintarSelectorCliente() {
   select.value = actual;
 }
 
+// Sin tildes y en minúsculas: el cajero escribe "cafe" y espera "Café".
+const llano = (s) => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+// Dice cuántos productos hay y cuántos se ven: antes la grilla cortaba en 60 en silencio.
+function pintarCuenta(mostrados, total) {
+  const cuenta = $('#grilla-cuenta');
+  const boton = $('#ver-mas');
+  const hayMas = mostrados < total;
+
+  cuenta.hidden = !hayMas;
+  cuenta.textContent = hayMas ? `Mostrando ${mostrados} de ${total} · acota con el buscador` : '';
+  boton.hidden = !hayMas;
+}
+
 function visibles() {
-  const f = S.filtro.trim().toLowerCase();
+  const f = llano(S.filtro).trim();
   return S.datos.productos
-    .filter((p) => !f || p.nombre.toLowerCase().includes(f) || (p.codigo || '').includes(f))
+    .filter((p) => !f || llano(p.nombre).includes(f) || (p.codigo || '').includes(f) || llano(p.categoria).includes(f))
     .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es-CL'));
 }
 
@@ -204,8 +225,14 @@ export function verEsperas() {
 /* ---------- eventos ---------- */
 
 export function montar() {
+  $('#ver-mas').addEventListener('click', () => {
+    S.limite += 120;
+    pintar();
+  });
+
   $('#buscar').addEventListener('input', (e) => {
     S.filtro = e.target.value;
+    S.limite = 60;
     pintar();
   });
 
@@ -224,8 +251,14 @@ export function montar() {
   });
 
   $('#grilla').addEventListener('click', (e) => {
+    if (e.target.closest('[data-ir-productos]')) {
+      document.querySelector('[data-tab="productos"]').click();
+      return;
+    }
+
     if (e.target.closest('[data-limpiar-busqueda]')) {
       S.filtro = '';
+      S.limite = 60;
       $('#buscar').value = '';
       return pintar();
     }

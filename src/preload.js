@@ -26,4 +26,10 @@ contextBridge.exposeInMainWorld('api', {
   exportarCSV: (tipo, desde, hasta) => llamar('exportarCSV', tipo, desde, hasta),
   respaldarArchivo: () => llamar('respaldarArchivo'),
   restaurarArchivo: () => llamar('restaurarArchivo'),
+  importarArchivo: () => llamar('importarArchivo'),
+  reiniciar: () => llamar('reiniciar'),
+  version: () => llamar('version'),
+  rutaDatos: () => llamar('rutaDatos'),
+  abrirCarpetaDatos: () => llamar('abrirCarpetaDatos'),
+  abrirReleases: () => llamar('abrirReleases'),
 });
