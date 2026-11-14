@@ -69,6 +69,8 @@ Una piel es un CSS que redefine doce tokens y, si hace falta, algunos componente
 
 **Gestión**
 - Productos con código, categoría, costo, precio y stock mínimo.
+- **Importación desde CSV**: las 800 fichas de un almacén entran de una vez, con el error de cada fila informado por número de línea.
+- **Primera vez**: la app pregunta si querés empezar vacío o con datos de ejemplo, y Ajustes tiene "Empezar de cero" para cuando el ejemplo ya no sirve.
 - Stock con alertas de reposición y ajustes con motivo (rotura, vencimiento, conteo).
 - Proveedores y compras que reponen stock y actualizan el último costo.
 - Clientes con su historial de compras.
@@ -248,6 +250,16 @@ La UI se verifica contra la app corriendo (venta completa, espera, anulación, c
 ## Límites
 
 No hace, a propósito: boleta electrónica del SII, multi-usuario con roles, sincronización en la nube, multi-caja en LAN, impresora fiscal. El comprobante que imprime es un documento interno, **no tributario**.
+
+Lo que sí conviene saber antes de confiarle un almacén:
+
+- **Una sola computadora.** El archivo de datos es uno y no se sincroniza. La app impide abrir dos ventanas a la vez porque se pisarían las ventas.
+- **El respaldo automático vive en el mismo disco** que los datos. Si el disco muere, se va todo: hay que sacar un respaldo a un pendrive de vez en cuando (Ajustes te dice cuándo fue el último).
+- **El instalador no está firmado.** Windows muestra "editor desconocido" la primera vez.
+- **No se actualiza sola.** Ajustes muestra la versión y un botón para ver si hay una nueva.
+- **Sin usuarios ni contraseñas**: quien abre la computadora ve todo.
+
+Manual para quien atiende el almacén: [`docs/MANUAL.md`](docs/MANUAL.md).
 
 ## Contribuir
 

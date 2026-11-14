@@ -35,6 +35,19 @@ async function guardarRespaldo(ventana, store) {
   return { ok: true, data: filePath };
 }
 
+// Importar productos: el diálogo vive acá, la validación en el dominio.
+async function importarCSV(ventana, store) {
+  const { canceled, filePaths } = await dialog.showOpenDialog(ventana, {
+    title: 'Importar productos desde CSV',
+    properties: ['openFile'],
+    filters: filtroCSV,
+  });
+  if (canceled || !filePaths.length) return { ok: false, cancelado: true };
+
+  const r = store.importarCSV(fs.readFileSync(filePaths[0], 'utf8'));
+  return { ok: true, data: { ...r, archivo: filePaths[0] } };
+}
+
 async function abrirRespaldo(ventana, store) {
   const { canceled, filePaths } = await dialog.showOpenDialog(ventana, {
     title: 'Restaurar respaldo',
@@ -47,4 +60,4 @@ async function abrirRespaldo(ventana, store) {
   return { ok: true, data: store.estado() };
 }
 
-module.exports = { exportarCSV, guardarRespaldo, abrirRespaldo };
+module.exports = { exportarCSV, guardarRespaldo, abrirRespaldo, importarCSV };

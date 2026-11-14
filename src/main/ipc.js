@@ -3,9 +3,10 @@
 // validación. Todo lo que muta devuelve el estado completo: el renderer repinta
 // desde una única fuente de verdad y no hay caché que se desincronice.
 
-const { ipcMain } = require('electron');
+const { ipcMain, app, shell } = require('electron');
 const { abrirComprobante } = require('./ventana');
-const { exportarCSV, guardarRespaldo, abrirRespaldo } = require('./archivos');
+const { exportarCSV, guardarRespaldo, abrirRespaldo, importarCSV } = require('./archivos');
+const path = require('node:path');
 
 const ok = (fn) => (event, ...args) => {
   try {
@@ -71,6 +72,24 @@ function registrarIpc(store, obtenerVentana) {
   ipcMain.handle('exportarCSV', okAsync((tipo, desde, hasta) => exportarCSV(obtenerVentana(), store, tipo, desde, hasta)));
   ipcMain.handle('respaldarArchivo', okAsync(() => guardarRespaldo(obtenerVentana(), store)));
   ipcMain.handle('restaurarArchivo', okAsync(() => abrirRespaldo(obtenerVentana(), store)));
+  ipcMain.handle('importarArchivo', okAsync(() => importarCSV(obtenerVentana(), store)));
+
+  ipcMain.handle('reiniciar', mutar(store, () => store.reiniciar()));
+
+  // Para soporte: qué versión corre y dónde están los datos.
+  ipcMain.handle('version', ok(() => app.getVersion()));
+  ipcMain.handle('abrirCarpetaDatos', okAsync(async () => {
+    const carpeta = app.getPath('userData');
+    await shell.openPath(carpeta);
+    return carpeta;
+  }));
+  ipcMain.handle('rutaDatos', ok(() => path.join(app.getPath('userData'), 'bodega.json')));
+
+  // La app no se actualiza sola (eso pide firma de código); al menos avisa dónde mirar.
+  ipcMain.handle('abrirReleases', okAsync(async () => {
+    await shell.openExternal('https://github.com/blehgk/bodega/releases/latest');
+    return true;
+  }));
 }
 
 module.exports = { registrarIpc };

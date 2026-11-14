@@ -2,6 +2,34 @@
 
 Todas las versiones publicadas de Bodega. El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa [versionado semántico](https://semver.org/lang/es/).
 
+## [0.5.0] — 2026-11-14
+
+Versión de correcciones salidas de una auditoría comercial. Todas verificadas con pruebas.
+
+### Corregido
+
+- **Dos ventanas abiertas perdían ventas.** Cada instancia reescribía el archivo entero desde su copia en memoria: dos ventas cobradas, una registrada. Ahora la app es de instancia única y la segunda ventana se cierra sola.
+- **Si el disco falla, la venta quedaba en memoria pero no en el archivo.** Ahora la memoria vuelve a lo que sí está guardado y el error dice qué pasó.
+- **El demo se instalaba en la app real y no había forma de sacarlo.** La primera vez la app pregunta si querés empezar vacío o con datos de ejemplo; Ajustes suma "Empezar de cero".
+- **La grilla cortaba en 60 productos sin avisar.** Ahora dice "Mostrando 60 de 200" y hay botón "Ver más".
+- **La búsqueda no ignoraba las tildes**: "cafe" no encontraba "Café". Ahora sí, y también busca por categoría.
+- **Se podían cargar dos productos con el mismo código de barras** y el escáner agregaba siempre el primero. Ahora se rechaza con el nombre del que ya lo tiene.
+- **Volver a cerrar el mismo día reemplazaba el cierre anterior sin avisar.** Ahora pregunta.
+- **El estado vacío decía "Sin resultados" aunque no hubiera ningún producto.** Ahora distingue "todavía no cargaste productos" de "ninguno coincide".
+
+### Agregado
+
+- **Importación de productos desde CSV**, con validación fila por fila y el número de línea del error. Acepta el CSV que exporta la propia app y el de Excel en español.
+- **Ajustes, sección Este equipo**: versión, ruta del archivo de datos, abrir la carpeta, buscar actualizaciones y empezar de cero.
+- **Aviso de respaldo fuera del equipo**: Ajustes dice cuándo fue el último respaldo guardado fuera del disco.
+- **Registro de errores** en `errores.log`, para que el soporte tenga algo que leer.
+- **Manual de usuario** en `docs/MANUAL.md`, escrito para quien atiende el almacén.
+- 10 pruebas nuevas (27 en total): importación, códigos repetidos, arranque de cero y fallo de disco.
+
+### Cambiado
+
+- Se quitó el menú por defecto de Electron (Archivo/Ver/Desarrollador).
+
 ## [0.4.2] — 2026-11-14
 
 ### Agregado

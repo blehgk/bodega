@@ -22,6 +22,7 @@ export const S = {
   carrito: [],   // [{ productoId, cantidad }]
   tab: 'caja',
   filtro: '',
+  limite: 60,     // cuántas celdas de producto se muestran antes de "Ver más"
   filtroProd: '',
   rango: 'semana',
   // Lo define app.js: evita que este módulo dependa de las vistas (y de un ciclo).

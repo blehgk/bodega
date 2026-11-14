@@ -1,11 +1,25 @@
 'use strict';
-// Vista Ajustes: datos del comercio (salen en el comprobante), exportación y respaldos.
+// Vista Ajustes: datos del comercio (salen en el comprobante), importación,
+// respaldos, apariencia y datos del equipo.
 
 import { $ } from '../ui/dom.js';
 import { esc, isoLocal } from '../ui/formato.js';
 import { avisar } from '../ui/aviso.js';
 import { S, bd, mutar } from '../ui/estado.js';
 import { montarSelector } from '../ui/tema.js';
+
+const CLAVE_RESPALDO = 'ultimoRespaldoFuera';
+
+// "nunca" o "hace 3 días": el respaldo automático vive en el mismo disco,
+// así que lo que importa es cuándo se sacó una copia fuera del equipo.
+function cuandoFueElRespaldo() {
+  const iso = localStorage.getItem(CLAVE_RESPALDO);
+  if (!iso) return 'nunca';
+  const dias = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (dias <= 0) return 'hoy';
+  if (dias === 1) return 'ayer';
+  return `hace ${dias} días`;
+}
 
 export function pintar() {
   const n = S.datos.negocio || {};
@@ -31,16 +45,21 @@ export function pintar() {
       </div>
 
       <div>
+        <p class="titulo-seccion">Productos</p>
+        <div class="campos">
+          <button class="secundario" data-importar>Importar productos desde CSV…</button>
+          <p class="pista">El CSV lleva las columnas Producto, Código, Categoría, Costo, Precio, Stock y Stock mínimo. Sirve el que exporta esta misma app.</p>
+        </div>
+
         <p class="titulo-seccion">Datos y respaldo</p>
         <div class="campos">
           <button class="secundario" data-exportar="ventas">Exportar ventas del mes (CSV)</button>
           <button class="secundario" data-exportar="productos">Exportar productos (CSV)</button>
-          <button class="secundario" data-respaldar>Guardar respaldo…</button>
+          <button class="secundario" data-respaldar>Guardar respaldo en otro lugar…</button>
           <button class="secundario" data-restaurar>Restaurar respaldo…</button>
-          <p class="pista">Los CSV se abren en Excel. El respaldo es un archivo con todos los datos: guárdalo en un pendrive o en la nube.</p>
-          <p class="pista">Los datos viven en esta computadora, sin internet.</p>
+          <p class="pista">La app guarda una copia automática por día, pero en el mismo disco. Si el disco muere, se va todo: sacá un respaldo a un pendrive o a la nube de vez en cuando.</p>
+          <p class="pista">Último respaldo fuera de este equipo: <strong>${cuandoFueElRespaldo()}</strong></p>
         </div>
-
       </div>
     </div>
 
@@ -51,9 +70,24 @@ export function pintar() {
         <select id="selector-tema"></select>
         <p class="pista" id="tema-nota"></p>
       </div>
+    </div>
+
+    <p class="titulo-seccion">Este equipo</p>
+    <div class="campos">
+      <p class="pista">Bodega <span id="version-texto">—</span> · los datos viven en esta computadora, sin internet.</p>
+      <p class="pista" id="ruta-datos"></p>
+      <div class="fila">
+        <button class="secundario" data-actualizacion>Buscar actualizaciones</button>
+        <button class="secundario" data-abrir-carpeta>Abrir la carpeta de datos</button>
+        <button class="secundario" data-reiniciar>Empezar de cero…</button>
+      </div>
     </div>`;
 
   montarSelector();
+
+  // La versión y la ruta llegan del proceso principal: se completan sin retrasar el pintado.
+  bd.version().then((v) => { if (v.ok) $('#version-texto').textContent = v.data; });
+  bd.rutaDatos().then((r) => { if (r.ok) $('#ruta-datos').textContent = r.data; });
 
   $('#guardar-negocio').addEventListener('click', async () => {
     localStorage.setItem('imprimirAuto', $('#n-imprimir').checked ? '1' : '0');
@@ -80,10 +114,32 @@ export function montar() {
       return;
     }
 
+    if (e.target.closest('[data-importar]')) {
+      const r = await bd.importarArchivo();
+      if (!r.ok) {
+        if (!r.cancelado) avisar(r.error, true);
+        return;
+      }
+      const { importados, errores } = r.data;
+      await mutar(bd.estado());
+      if (errores.length) {
+        const detalle = errores.slice(0, 5).map((x) => `fila ${x.fila}: ${x.motivo}`).join('\n');
+        avisar(`${importados} productos importados. ${errores.length} con problemas:\n${detalle}`, true);
+      } else {
+        avisar(`${importados} productos importados`);
+      }
+      return;
+    }
+
     if (e.target.closest('[data-respaldar]')) {
       const r = await bd.respaldarArchivo();
-      if (r.ok) avisar(`Respaldo guardado en ${r.data}`);
-      else if (!r.cancelado) avisar(r.error, true);
+      if (r.ok) {
+        localStorage.setItem(CLAVE_RESPALDO, new Date().toISOString());
+        avisar(`Respaldo guardado en ${r.data}`);
+        pintar();
+      } else if (!r.cancelado) {
+        avisar(r.error, true);
+      }
       return;
     }
 
@@ -96,6 +152,28 @@ export function montar() {
         avisar('Respaldo restaurado');
       } else if (!r.cancelado) {
         avisar(r.error, true);
+      }
+      return;
+    }
+
+    if (e.target.closest('[data-actualizacion]')) {
+      const r = await bd.abrirReleases();
+      if (!r.ok) avisar(r.error, true);
+      return;
+    }
+
+    if (e.target.closest('[data-abrir-carpeta]')) {
+      const r = await bd.abrirCarpetaDatos();
+      if (!r.ok) avisar(r.error, true);
+      return;
+    }
+
+    if (e.target.closest('[data-reiniciar]')) {
+      if (!confirm('Esto borra productos, ventas, clientes, proveedores y cierres.\n\nLos datos del negocio se mantienen. ¿Seguir?')) return;
+      if (!confirm('Última confirmación: no se puede deshacer.\n\n¿Empezar de cero?')) return;
+      if (await mutar(bd.reiniciar())) {
+        S.carrito = [];
+        avisar('Listo, empezaste de cero');
       }
     }
   });
