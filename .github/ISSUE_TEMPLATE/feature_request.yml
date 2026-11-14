@@ -1,0 +1,38 @@
+name: Proponer una mejora
+description: Algo que haría la caja más rápida o más clara
+labels: [mejora]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Este proyecto es chico a propósito: entra lo que mejora la caja del almacén, no lo que agranda el producto.
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qué problema resuelve
+      description: Describe la situación real en el mostrador, no la solución.
+      placeholder: Cuando hay cola, cambiar la cantidad de un producto obliga a usar el mouse.
+    validations:
+      required: true
+
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Cómo lo resolverías
+      placeholder: Que las flechas del teclado muevan la cantidad del último producto agregado.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: alcance
+    attributes:
+      label: Qué toca
+      options:
+        - Caja / venta
+        - Stock / productos
+        - Reportes / cierre
+        - Datos / respaldos
+        - Otro
+    validations:
+      required: true

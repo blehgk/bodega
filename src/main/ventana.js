@@ -14,12 +14,13 @@ const SEGURIDAD = {
 };
 
 function crearVentana() {
+  // Tamaño configurable solo para las capturas: BODEGA_ANCHO / BODEGA_ALTO.
   const win = new BrowserWindow({
-    width: 1320,
-    height: 860,
-    minWidth: 1024,
-    minHeight: 640,
-    backgroundColor: '#0d1014',
+    width: Number(process.env.BODEGA_ANCHO) || 1320,
+    height: Number(process.env.BODEGA_ALTO) || 860,
+    minWidth: 880,
+    minHeight: 560,
+    backgroundColor: '#f2eee3',
     title: 'Bodega',
     autoHideMenuBar: true,
     webPreferences: { ...SEGURIDAD, preload: path.join(__dirname, '..', 'preload.js') },

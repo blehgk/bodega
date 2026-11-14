@@ -1,5 +1,10 @@
 # Bodega
 
+[![CI](https://github.com/blehgk/bodega/actions/workflows/ci.yml/badge.svg)](https://github.com/blehgk/bodega/actions/workflows/ci.yml)
+[![Última versión](https://img.shields.io/github/v/release/blehgk/bodega?label=versi%C3%B3n)](https://github.com/blehgk/bodega/releases/latest)
+[![Licencia](https://img.shields.io/badge/licencia-MIT-17140f.svg)](LICENSE)
+[![Plataformas](https://img.shields.io/badge/Windows%20%7C%20Linux-17140f.svg)](#descargar)
+
 Gestor de stock y ventas para almacenes y kioscos chilenos. Aplicación de escritorio que funciona **sin internet y sin servidor**: los datos viven en la máquina del comercio. Precios en CLP, sin decimales.
 
 ![Caja](docs/caja.png)
@@ -219,6 +224,12 @@ La UI se verifica contra la app corriendo (venta completa, espera, anulación, c
 ## Límites
 
 No hace, a propósito: boleta electrónica del SII, multi-usuario con roles, sincronización en la nube, multi-caja en LAN, impresora fiscal. El comprobante que imprime es un documento interno, **no tributario**.
+
+## Contribuir
+
+Los issues y pull requests son bienvenidos. Antes de escribir código, lee [CONTRIBUTING.md](CONTRIBUTING.md): explica dónde va cada cosa, qué reglas sigue el proyecto y qué no se acepta.
+
+Los cambios de cada versión están en [CHANGELOG.md](CHANGELOG.md).
 
 ## Licencia
 
