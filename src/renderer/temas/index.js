@@ -64,6 +64,12 @@ export const TEMAS = [
     archivo: 'temas/terminal.css',
   },
   {
+    id: 'tinta',
+    nombre: 'Tinta electrónica',
+    nota: '1 bit: negro puro sobre blanco, grises de trama y cero animación. Para pantallas e-ink.',
+    archivo: 'temas/tinta.css',
+  },
+  {
     id: 'editorial',
     nombre: 'Editorial',
     nota: 'Serif, reglas finas y aire. La más tranquila para leer números todo el día.',

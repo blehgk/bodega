@@ -2,6 +2,12 @@
 
 Todas las versiones publicadas de Bodega. El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa [versionado semántico](https://semver.org/lang/es/).
 
+## [0.4.2] — 2026-11-14
+
+### Agregado
+
+- **Piel "Tinta electrónica"**: 1 bit de verdad. Negro puro sobre blanco puro, los grises son tramas de dithering, líneas de 2px y cero animación. Los botones deshabilitados se marcan con borde punteado, no con opacidad, porque una e-ink no dibuja grises.
+
 ## [0.4.1] — 2026-11-14
 
 ### Corregido

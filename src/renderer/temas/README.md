@@ -1,7 +1,7 @@
 # Pieles de Bodega
 
 Una **piel** es un archivo CSS que se carga después de `styles.css` y cambia la
-apariencia sin tocar la estructura, el HTML ni el JavaScript. La app trae once.
+apariencia sin tocar la estructura, el HTML ni el JavaScript. La app trae doce.
 
 La piel elegida se guarda en `localStorage` (es de esta computadora, no del
 negocio) y se aplica antes del primer pintado desde `temas/boot.js`, así no hay
@@ -46,7 +46,7 @@ BODEGA_SHOT=docs/skins/mi-piel.png BODEGA_TAB=caja BODEGA_TEMA=mi-piel \
   xvfb-run -a --server-args="-screen 0 1400x900x24" npx electron . --no-sandbox
 ```
 
-## Las once
+## Las doce
 
 | id | Origen | De qué va |
 |---|---|---|
@@ -60,11 +60,12 @@ BODEGA_SHOT=docs/skins/mi-piel.png BODEGA_TAB=caja BODEGA_TEMA=mi-piel \
 | `fluent` | Windows 11 | Mica, radio de 8px, línea de acento. |
 | `brutal` | web 2021 | Borde negro de 3px y sombra dura. |
 | `terminal` | consola | Fósforo verde, todo monoespaciado. |
+| `tinta` | e-ink | 1 bit: negro puro, grises de trama, sin animación. |
 | `editorial` | imprenta | Serif, reglas finas, aire. |
 
 ## Lo que se probó y lo que no
 
-Probado con capturas reales a 1400×900 en las once pieles, y a 1024×600 en las
+Probado con capturas reales a 1400×900 en las doce pieles, y a 1024×600 en las
 que más aprietan (`ios-glass`, `brutal`, `terminal`). No se probó en pantallas
 de 4K ni con escalado de Windows al 150%, donde los bordes de 0.5px pueden
 desaparecer.

@@ -26,9 +26,9 @@ La interfaz toma el objeto que ya está colgado en la pared de todo almacén: **
 
 ## Pieles
 
-La interfaz viene en once pieles intercambiables desde **Ajustes → Apariencia**. Cambian la superficie, nunca la estructura: los mismos datos, el mismo flujo, otro idioma visual.
+La interfaz viene en doce pieles intercambiables desde **Ajustes → Apariencia**. Cambian la superficie, nunca la estructura: los mismos datos, el mismo flujo, otro idioma visual.
 
-![Once pieles de Bodega](docs/skins/hoja.png)
+![Doce pieles de Bodega](docs/skins/hoja.png)
 
 | Piel | De qué va |
 |---|---|
@@ -42,6 +42,7 @@ La interfaz viene en once pieles intercambiables desde **Ajustes → Apariencia*
 | Windows · Fluent | Mica, radio de 8px, línea de acento. |
 | Neo-brutalismo | Borde negro de 3px y sombra dura. |
 | Terminal | Fósforo verde, todo monoespaciado. |
+| Tinta electrónica | 1 bit: negro puro, grises de trama, cero animación. |
 | Editorial | Serif, reglas finas, aire. |
 
 Una piel es un CSS que redefine doce tokens y, si hace falta, algunos componentes. Cómo agregar la tuya: [`src/renderer/temas/README.md`](src/renderer/temas/README.md).
