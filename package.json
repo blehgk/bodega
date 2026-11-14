@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "test": "node --test test/",
+    "test": "node --test",
     "dist:linux": "electron-builder --linux AppImage",
     "dist:win": "electron-builder --win nsis"
   },
