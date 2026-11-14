@@ -78,7 +78,7 @@ export function pintarCarrito() {
     </div>`;
   }).join('');
 
-  $('#carrito').innerHTML = filas || '<p class="vacio">Toca un producto para agregarlo</p>';
+  $('#carrito').innerHTML = filas || '<p class="vacio">Elige un producto para agregarlo</p>';
 
   const bruto = subtotal();
   const desc = descuento();

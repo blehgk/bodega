@@ -5,6 +5,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
   <title>Bodega</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="temas/boot.js"></script>
 </head>
 <body>
   <header class="cabecera">
@@ -12,7 +13,7 @@
       <h1 id="marca-nombre">Bodega</h1>
       <dl class="cabecera-datos">
         <div><dt>Hoy</dt><dd id="cabecera-fecha">—</dd></div>
-        <div><dt>Vendido</dt><dd id="cabecera-vendido">$0</dd></div>
+        <div><dt>Vendido hoy</dt><dd id="cabecera-vendido">$0</dd></div>
         <div><dt>Por reponer</dt><dd id="cabecera-faltan">0</dd></div>
       </dl>
     </div>
@@ -45,7 +46,7 @@
             <h2>Venta</h2>
             <div class="fila-titulo-acciones">
               <button id="btn-esperas" class="secundario chico" hidden>En espera</button>
-              <button id="limpiar" class="secundario chico" disabled>Limpiar</button>
+              <button id="limpiar" class="secundario chico" disabled>Vaciar</button>
             </div>
           </div>
 
@@ -103,7 +104,7 @@
     <section class="vista" id="vista-stock">
       <div class="barra">
         <h2 class="titulo">Stock</h2>
-        <span class="pista">En rojo, lo que llegó al mínimo</span>
+        <span class="pista">Lo marcado llegó al mínimo</span>
       </div>
       <div id="tabla-stock" class="panel"></div>
     </section>

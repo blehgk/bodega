@@ -1,0 +1,144 @@
+/* ============================================================
+   Neumorfismo
+   Tres movimientos: la superficie y el fondo son el mismo material,
+   la forma la da la luz (sombra clara arriba-izquierda, oscura
+   abajo-derecha), y cero bordes.
+   ============================================================ */
+
+:root {
+  --fondo: #e0e5ec;
+  --tinta: #232e3c;
+  --tinta-2: #55637a;
+  --acento: #4a6cf7;
+  --claro: #ffffff;
+  --oscuro: #b8c0cc;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+
+.cabecera { background: var(--fondo); color: var(--tinta); border-bottom: 0; }
+.cabecera-fila { padding: 16px 22px 8px; }
+#marca-nombre { font: 800 24px/1.1 Nunito, system-ui, sans-serif; letter-spacing: -0.3px; text-transform: none; }
+.cabecera-datos dt { color: var(--tinta-2); font: 700 11px/1 Nunito, system-ui, sans-serif; letter-spacing: 0.6px; text-transform: uppercase; }
+.cabecera-datos dd { color: var(--tinta); font: 800 15px/1.1 Nunito, system-ui, sans-serif; }
+#cabecera-faltan { background: none; color: var(--acento); padding: 0; }
+
+#tabs { background: transparent; padding: 0 14px 8px; gap: 6px; }
+#tabs button {
+  border: 0;
+  border-radius: 14px;
+  color: var(--tinta-2);
+  font: 700 12px/1 Nunito, system-ui, sans-serif;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  padding: 8px 14px;
+}
+#tabs button.activo {
+  color: var(--acento);
+  box-shadow: inset 3px 3px 6px var(--oscuro), inset -3px -3px 6px var(--claro);
+}
+
+.ticket, .panel, .vacio-panel, .kpi, dialog {
+  background: var(--fondo);
+  border: 0;
+  border-radius: 22px;
+  box-shadow: 6px 6px 14px var(--oscuro), -6px -6px 14px var(--claro);
+}
+
+.grilla { background: transparent; border: 0; gap: 12px; }
+.producto {
+  background: var(--fondo);
+  border: 0;
+  border-radius: 18px;
+  padding: 12px 14px;
+  box-shadow: 5px 5px 12px var(--oscuro), -5px -5px 12px var(--claro);
+}
+.producto:hover { outline: 0; box-shadow: inset 4px 4px 9px var(--oscuro), inset -4px -4px 9px var(--claro); }
+.producto .c { color: var(--tinta-2); font: 700 11px/1.2 Nunito, system-ui, sans-serif; letter-spacing: 0.8px; text-transform: uppercase; }
+.producto .n { font: 600 13px/1.3 Nunito, system-ui, sans-serif; }
+.producto .p { font: 800 16px/1 Nunito, system-ui, sans-serif; color: #1b2430; }
+.producto .stock { color: var(--tinta-2); font: 800 13px/1 Nunito, system-ui, sans-serif; }
+.producto.poco .stock { background: none; color: #d98324; }
+.producto.agotado { box-shadow: inset 4px 4px 9px var(--oscuro), inset -4px -4px 9px var(--claro); }
+.producto.agotado .stock { background: none; color: #c0455a; }
+
+input, select {
+  background: var(--fondo);
+  border: 0;
+  border-radius: 14px;
+  padding: 11px 14px;
+  font-family: Nunito, system-ui, sans-serif;
+  box-shadow: inset 3px 3px 7px var(--oscuro), inset -3px -3px 7px var(--claro);
+}
+input:focus, select:focus { outline: 0; box-shadow: inset 3px 3px 7px var(--oscuro), inset -3px -3px 7px var(--claro), 0 0 0 2px var(--acento); }
+
+button.primario, button.secundario {
+  border: 0;
+  border-radius: 16px;
+  font: 800 13px/1 Nunito, system-ui, sans-serif;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  padding: 12px 20px;
+}
+button.primario {
+  background: var(--fondo);
+  color: var(--acento);
+  box-shadow: 5px 5px 12px var(--oscuro), -5px -5px 12px var(--claro);
+}
+button.primario:hover:not(:disabled) { box-shadow: inset 4px 4px 9px var(--oscuro), inset -4px -4px 9px var(--claro); }
+button.primario:disabled { color: var(--tinta-2); box-shadow: inset 3px 3px 7px var(--oscuro), inset -3px -3px 7px var(--claro); border: 0; }
+button.secundario { background: var(--fondo); color: var(--tinta-2); box-shadow: 4px 4px 10px var(--oscuro), -4px -4px 10px var(--claro); }
+button.secundario:disabled { color: #9aa6b8; box-shadow: inset 3px 3px 7px var(--oscuro), inset -3px -3px 7px var(--claro); border: 0; }
+
+.total { border-top: 0; }
+.total strong { font: 800 32px/1 Nunito, system-ui, sans-serif; letter-spacing: -0.8px; }
+.total span { font: 700 12px/1 Nunito, system-ui, sans-serif; letter-spacing: 0.8px; text-transform: uppercase; color: var(--tinta-2); }
+
+.linea { border-bottom: 1px solid rgba(184, 192, 204, 0.5); }
+.linea .ctrl button { border: 0; border-radius: 10px; background: var(--fondo); box-shadow: 2px 2px 5px var(--oscuro), -2px -2px 5px var(--claro); color: var(--tinta); }
+.linea .ctrl .quitar { color: #c0455a; text-transform: none; letter-spacing: 0; }
+
+th { background: transparent; border-bottom: 1px solid rgba(184, 192, 204, 0.6); color: var(--tinta-2); text-transform: uppercase; letter-spacing: 0.8px; font: 800 11px/1.3 Nunito, system-ui, sans-serif; }
+td { border-bottom: 1px solid rgba(184, 192, 204, 0.4); font-family: Nunito, system-ui, sans-serif; }
+td.num, th.num { font-family: Nunito, system-ui, sans-serif; }
+tbody tr:hover { background: rgba(255, 255, 255, 0.35); }
+
+.kpis { border: 0; gap: 12px; }
+.kpi span { color: var(--tinta-2); text-transform: uppercase; letter-spacing: 0.8px; font: 800 11px/1.3 Nunito, system-ui, sans-serif; }
+.kpi strong { font: 800 24px/1.1 Nunito, system-ui, sans-serif; letter-spacing: -0.4px; }
+
+.titulo, #form-modal h2 { font-family: Nunito, system-ui, sans-serif; text-transform: none; letter-spacing: -0.2px; font-weight: 800; }
+.titulo-seccion { border-bottom: 0; text-transform: uppercase; letter-spacing: 0.8px; font: 800 11px/1.4 Nunito, system-ui, sans-serif; color: var(--tinta-2); }
+
+dialog { border-radius: 24px; }
+dialog::backdrop { background: rgba(46, 58, 75, 0.35); }
+.aviso { border-radius: 14px; background: var(--fondo); color: var(--tinta); border: 0; box-shadow: 4px 4px 12px var(--oscuro), -4px -4px 12px var(--claro); }
+.aviso.error { color: #c0455a; }
+
+::-webkit-scrollbar-thumb { background: var(--oscuro); border-radius: 8px; }
+::-webkit-scrollbar-track { background: var(--fondo); border-left: 0; }
+
+/* ------------------------------------------------------------
+   CONTRATO DE TOKENS
+   Toda piel redefine estos valores. Lo que la base pinte con
+   var(--papel) o var(--tinta) queda así dentro de la piel, sin
+   necesidad de repetir regla por regla.
+   ------------------------------------------------------------ */
+:root {
+  --papel: #e0e5ec;
+  --papel-hueso: #e6ebf2;
+  --papel-banda: #d6dce5;
+  --tinta: #232e3c;
+  --tinta-2: #55637a;
+  --tinta-3: #8a97a8;
+  --rojo: #c0455a;
+  --linea: 1px solid rgba(184,192,204,0.7);
+  --linea-suave: 1px solid rgba(184,192,204,0.45);
+  --condensada: Nunito, system-ui, sans-serif;
+  --texto: Nunito, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}

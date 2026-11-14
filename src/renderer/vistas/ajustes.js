@@ -5,6 +5,7 @@ import { $ } from '../ui/dom.js';
 import { esc, isoLocal } from '../ui/formato.js';
 import { avisar } from '../ui/aviso.js';
 import { S, bd, mutar } from '../ui/estado.js';
+import { montarSelector } from '../ui/tema.js';
 
 export function pintar() {
   const n = S.datos.negocio || {};
@@ -37,10 +38,22 @@ export function pintar() {
           <button class="secundario" data-respaldar>Guardar respaldo…</button>
           <button class="secundario" data-restaurar>Restaurar respaldo…</button>
           <p class="pista">Los CSV se abren en Excel. El respaldo es un archivo con todos los datos: guárdalo en un pendrive o en la nube.</p>
-          <p class="pista">Bodega 0.2.0 · los datos viven en esta computadora, sin internet.</p>
+          <p class="pista">Los datos viven en esta computadora, sin internet.</p>
         </div>
+
+      </div>
+    </div>
+
+    <p class="titulo-seccion">Apariencia</p>
+    <div class="campos">
+      <div class="campo">
+        <label for="selector-tema">Piel de la interfaz</label>
+        <select id="selector-tema"></select>
+        <p class="pista" id="tema-nota"></p>
       </div>
     </div>`;
+
+  montarSelector();
 
   $('#guardar-negocio').addEventListener('click', async () => {
     localStorage.setItem('imprimirAuto', $('#n-imprimir').checked ? '1' : '0');

@@ -1,0 +1,138 @@
+/* ============================================================
+   Neo-brutalismo
+   Tres movimientos: borde negro de 3px, sombra dura sin difuminar,
+   y un amarillo que no pide permiso. Nada de radios.
+   ============================================================ */
+
+:root {
+  --fondo: #fdf6e3;
+  --tinta: #0a0a0a;
+  --amarillo: #ffe500;
+  --rosa: #ff90e8;
+  --celeste: #a8d8ff;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: "Space Grotesk", "Archivo", "Segoe UI", system-ui, sans-serif;
+}
+
+.cabecera { background: var(--amarillo); color: var(--tinta); border-bottom: 3px solid var(--tinta); }
+.cabecera-fila { padding: 12px 20px 10px; }
+#marca-nombre { font: 800 26px/1 "Space Grotesk", system-ui, sans-serif; letter-spacing: -0.5px; text-transform: uppercase; }
+.cabecera-datos dt { color: var(--tinta); font: 700 11px/1 "Space Grotesk", system-ui, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+.cabecera-datos dd { color: var(--tinta); font: 800 16px/1 "Space Grotesk", system-ui, sans-serif; }
+#cabecera-faltan { background: var(--tinta); color: var(--amarillo); padding: 1px 6px; }
+
+#tabs { background: var(--amarillo); padding: 0 12px; border-bottom: 3px solid var(--tinta); gap: 0; }
+#tabs button {
+  border: 0;
+  border-right: 3px solid var(--tinta);
+  color: var(--tinta);
+  font: 700 12px/1 "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 8px 14px;
+}
+#tabs button:first-child { border-left: 3px solid var(--tinta); }
+#tabs button.activo { background: var(--tinta); color: var(--amarillo); }
+
+.ticket, .panel, .vacio-panel, .kpi, dialog {
+  background: #fff;
+  border: 3px solid var(--tinta);
+  border-radius: 0;
+  box-shadow: 6px 6px 0 var(--tinta);
+}
+
+.grilla { background: transparent; border: 0; gap: 10px; }
+.producto {
+  background: #fff;
+  border: 3px solid var(--tinta);
+  border-radius: 0;
+  padding: 10px 12px;
+  box-shadow: 4px 4px 0 var(--tinta);
+}
+.producto:hover { outline: 0; background: var(--celeste); box-shadow: 6px 6px 0 var(--tinta); }
+.producto .c { color: var(--tinta); font: 700 11px/1.2 "Space Grotesk", system-ui, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+.producto .n { font: 600 13px/1.3 "Space Grotesk", system-ui, sans-serif; }
+.producto .p { font: 800 16px/1 "Space Grotesk", system-ui, sans-serif; }
+.producto .stock { color: var(--tinta); font: 800 14px/1 "Space Grotesk", system-ui, sans-serif; }
+.producto.poco { background: var(--amarillo); }
+.producto.poco .stock { background: none; }
+.producto.agotado { background: var(--rosa); box-shadow: none; }
+.producto.agotado .stock { background: none; }
+
+input, select {
+  background: #fff;
+  border: 3px solid var(--tinta);
+  border-radius: 0;
+  padding: 8px 11px;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 600;
+}
+input:focus, select:focus { outline: 0; box-shadow: 4px 4px 0 var(--tinta); }
+
+button.primario, button.secundario {
+  border: 3px solid var(--tinta);
+  border-radius: 0;
+  font: 800 12px/1 "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  box-shadow: 4px 4px 0 var(--tinta);
+}
+button.primario { background: var(--amarillo); color: var(--tinta); }
+button.primario:hover:not(:disabled) { background: #fff; transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--tinta); }
+button.primario:disabled { background: #e8e8e8; color: #8a8a8a; border-color: #8a8a8a; box-shadow: 4px 4px 0 #8a8a8a; }
+button.secundario { background: #fff; color: var(--tinta); }
+button.secundario:hover:not(:disabled) { background: var(--celeste); }
+button.secundario:disabled { color: #8a8a8a; border-color: #8a8a8a; box-shadow: 4px 4px 0 #8a8a8a; }
+
+.total { border-top: 3px solid var(--tinta); }
+.total strong { font: 800 34px/1 "Space Grotesk", system-ui, sans-serif; letter-spacing: -1px; }
+.total span { font: 800 12px/1 "Space Grotesk", system-ui, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+
+.linea { border-bottom: 2px solid var(--tinta); }
+.linea .ctrl button { border: 2px solid var(--tinta); border-radius: 0; background: #fff; font-weight: 800; }
+.linea .ctrl button:hover { background: var(--amarillo); }
+.linea .ctrl .quitar { color: var(--tinta); text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+
+th { background: var(--tinta); border-bottom: 3px solid var(--tinta); color: var(--amarillo); text-transform: uppercase; letter-spacing: 1px; font: 800 11px/1.3 "Space Grotesk", system-ui, sans-serif; }
+td { border-bottom: 2px solid var(--tinta); font-family: "Space Grotesk", system-ui, sans-serif; font-weight: 500; }
+td.num, th.num { font-family: "Space Grotesk", system-ui, sans-serif; }
+tbody tr:hover { background: var(--celeste); }
+
+.kpis { border: 0; gap: 10px; }
+.kpi { background: var(--amarillo); }
+.kpi span { color: var(--tinta); text-transform: uppercase; letter-spacing: 1px; font: 800 11px/1.3 "Space Grotesk", system-ui, sans-serif; }
+.kpi strong { font: 800 26px/1.1 "Space Grotesk", system-ui, sans-serif; letter-spacing: -0.6px; }
+
+.titulo, #form-modal h2 { font-family: "Space Grotesk", system-ui, sans-serif; text-transform: uppercase; letter-spacing: -0.3px; font-weight: 800; }
+.titulo-seccion { border-bottom: 3px solid var(--tinta); text-transform: uppercase; letter-spacing: 1px; font: 800 11px/1.4 "Space Grotesk", system-ui, sans-serif; }
+
+dialog { box-shadow: 10px 10px 0 var(--tinta); }
+dialog::backdrop { background: rgba(10, 10, 10, 0.55); }
+.aviso { border-radius: 0; background: var(--tinta); color: var(--amarillo); border: 3px solid var(--tinta); font-weight: 700; }
+.aviso.error { background: var(--rosa); color: var(--tinta); }
+
+/* ------------------------------------------------------------
+   CONTRATO DE TOKENS
+   Toda piel redefine estos valores. Lo que la base pinte con
+   var(--papel) o var(--tinta) queda así dentro de la piel, sin
+   necesidad de repetir regla por regla.
+   ------------------------------------------------------------ */
+:root {
+  --papel: #ffffff;
+  --papel-hueso: #ffffff;
+  --papel-banda: #fdf6e3;
+  --tinta: #0a0a0a;
+  --tinta-2: #3a3a3a;
+  --tinta-3: #5a5a5a;
+  --rojo: #ff3b6b;
+  --linea: 3px solid #0a0a0a;
+  --linea-suave: 2px solid #0a0a0a;
+  --condensada: "Space Grotesk", system-ui, sans-serif;
+  --texto: "Space Grotesk", system-ui, sans-serif;
+  --mono: "Space Mono", ui-monospace, monospace;
+}

@@ -2,6 +2,21 @@
 
 Todas las versiones publicadas de Bodega. El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa [versionado semántico](https://semver.org/lang/es/).
 
+## [0.4.0] — 2026-11-14
+
+### Agregado
+
+- **Once pieles intercambiables** desde Ajustes → Apariencia: almanaque, iOS Liquid Glass, iOS Listas, Samsung One UI, Material 3, Glassmorphism, Neumorfismo, Windows Fluent, Neo-brutalismo, Terminal y Editorial. La piel es un CSS que redefine doce tokens; la estructura no cambia.
+- La piel elegida se guarda por computadora y se aplica antes del primer pintado, sin parpadeo.
+- Guía para escribir una piel propia en `src/renderer/temas/README.md`.
+
+### Cambiado
+
+- Nomenclatura: un nombre por cosa. "Vendido" pasa a "Vendido hoy", "Ajustar" (stock) a "Corregir" para no confundirse con "Ajustes", "Limpiar" a "Vaciar", y "En espera (n)" a "Ver en espera (n)".
+- "Toca un producto" pasa a "Elige un producto": la app es de teclado y mouse, no táctil.
+- "Para reponer" en reportes se unifica con "Por reponer" de la cabecera.
+- La pista de Stock ya no habla de un color: dice "Lo marcado llegó al mínimo", que sirve en cualquier piel.
+
 ## [0.3.1] — 2026-11-14
 
 ### Agregado

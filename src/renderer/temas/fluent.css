@@ -1,0 +1,137 @@
+/* ============================================================
+   Windows · Fluent (11/12)
+   Tres movimientos: capas Mica (fondo del sistema translúcido),
+   radio de 8px, y una línea de acento de 3px que marca lo activo.
+   ============================================================ */
+
+:root {
+  --fondo: #f3f3f3;
+  --capa: #fbfbfb;
+  --tinta: #1a1a1a;
+  --tinta-2: #5d5d5d;
+  --acento: #0067c0;
+  --borde: #e3e3e3;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+}
+
+.cabecera {
+  background: rgba(251, 251, 251, 0.85);
+  backdrop-filter: blur(30px) saturate(125%);
+  color: var(--tinta);
+  border-bottom: 1px solid var(--borde);
+}
+.cabecera-fila { padding: 12px 20px 8px; }
+#marca-nombre { font: 600 22px/1.2 "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+.cabecera-datos dt { color: var(--tinta-2); font: 400 11px/1 "Segoe UI", system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+.cabecera-datos dd { color: var(--tinta); font: 600 15px/1.1 "Segoe UI", system-ui, sans-serif; }
+#cabecera-faltan { background: none; color: var(--acento); padding: 0; }
+
+#tabs { background: transparent; padding: 0 10px 0; border-bottom: 1px solid var(--borde); gap: 2px; }
+#tabs button {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  color: var(--tinta-2);
+  font: 400 13px/1 "Segoe UI", system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 9px 12px 7px;
+}
+#tabs button.activo { color: var(--tinta); border-bottom-color: var(--acento); background: none; font-weight: 600; }
+
+.ticket, .panel, .vacio-panel, .kpi, dialog {
+  background: var(--capa);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.grilla { background: transparent; border: 0; gap: 6px; }
+.producto {
+  background: var(--capa);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.producto:hover { outline: 0; background: #f0f6fc; border-color: #c7dff3; }
+.producto .c { color: var(--tinta-2); font: 400 11px/1.2 "Segoe UI", system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+.producto .n { font: 400 13px/1.35 "Segoe UI", system-ui, sans-serif; }
+.producto .p { font: 600 15px/1 "Segoe UI", system-ui, sans-serif; }
+.producto .stock { color: var(--tinta-2); font: 400 13px/1 "Segoe UI", system-ui, sans-serif; }
+.producto.poco .stock { background: none; color: #9d5d00; }
+.producto.agotado { background: #f7f7f7; }
+.producto.agotado .stock { background: none; color: #c42b1c; }
+
+input, select {
+  background: #fff;
+  border: 1px solid #c8c8c8;
+  border-bottom: 2px solid #8a8a8a;
+  border-radius: 4px;
+  padding: 8px 11px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+input:focus, select:focus { outline: 0; border-bottom-color: var(--acento); }
+
+button.primario, button.secundario {
+  border-radius: 4px;
+  font: 400 13px/1 "Segoe UI", system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 9px 16px;
+}
+button.primario { background: var(--acento); color: #fff; border: 1px solid var(--acento); }
+button.primario:hover:not(:disabled) { background: #005ba3; }
+button.primario:disabled { background: #f0f0f0; color: #9a9a9a; border: 1px solid #e0e0e0; }
+button.secundario { background: #fdfdfd; color: var(--tinta); border: 1px solid #c8c8c8; border-bottom-color: #b0b0b0; }
+button.secundario:hover:not(:disabled) { background: #f5f5f5; }
+button.secundario:disabled { background: #f7f7f7; color: #a8a8a8; border-color: #e8e8e8; }
+
+.total { border-top: 1px solid var(--borde); }
+.total strong { font: 600 30px/1 "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; letter-spacing: -0.5px; }
+.total span { font: 400 12px/1 "Segoe UI", system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--tinta-2); }
+
+.linea { border-bottom: 1px solid #ededed; }
+.linea .ctrl button { border: 1px solid #d0d0d0; border-radius: 4px; background: #fff; }
+.linea .ctrl .quitar { color: #c42b1c; text-transform: none; letter-spacing: 0; }
+
+th { background: #f7f7f7; border-bottom: 1px solid var(--borde); color: var(--tinta-2); text-transform: none; letter-spacing: 0; font: 600 12px/1.3 "Segoe UI", system-ui, sans-serif; }
+td { border-bottom: 1px solid #ededed; font-family: "Segoe UI", system-ui, sans-serif; }
+td.num, th.num { font-family: "Segoe UI", system-ui, sans-serif; }
+tbody tr:hover { background: #f0f6fc; }
+
+.kpis { border: 0; gap: 8px; }
+.kpi span { color: var(--tinta-2); text-transform: none; letter-spacing: 0; font: 400 12px/1.3 "Segoe UI", system-ui, sans-serif; }
+.kpi strong { font: 600 23px/1.1 "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; letter-spacing: -0.3px; }
+
+.titulo, #form-modal h2 { font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; text-transform: none; letter-spacing: 0; font-weight: 600; }
+.titulo-seccion { border-bottom: 1px solid var(--borde); text-transform: none; letter-spacing: 0; font: 600 12px/1.4 "Segoe UI", system-ui, sans-serif; color: var(--tinta-2); }
+
+dialog { border-radius: 8px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2); }
+dialog::backdrop { background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); }
+.aviso { border-radius: 4px; background: #2b2b2b; border: 0; }
+.aviso.error { background: #c42b1c; }
+
+/* ------------------------------------------------------------
+   CONTRATO DE TOKENS
+   Toda piel redefine estos valores. Lo que la base pinte con
+   var(--papel) o var(--tinta) queda así dentro de la piel, sin
+   necesidad de repetir regla por regla.
+   ------------------------------------------------------------ */
+:root {
+  --papel: #fbfbfb;
+  --papel-hueso: #ffffff;
+  --papel-banda: #f3f3f3;
+  --tinta: #1a1a1a;
+  --tinta-2: #5d5d5d;
+  --tinta-3: #767676;
+  --rojo: #c42b1c;
+  --linea: 1px solid #e3e3e3;
+  --linea-suave: 1px solid #ededed;
+  --condensada: "Segoe UI", system-ui, sans-serif;
+  --texto: "Segoe UI", system-ui, sans-serif;
+  --mono: "Cascadia Mono", ui-monospace, monospace;
+}

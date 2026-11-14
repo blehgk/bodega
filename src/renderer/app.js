@@ -5,6 +5,7 @@
 import { $, $$ } from './ui/dom.js';
 import { plata, isoLocal } from './ui/formato.js';
 import { S, cargar } from './ui/estado.js';
+import { aplicarTema, temaActual, montarSelector } from './ui/tema.js';
 
 import * as caja from './vistas/caja.js';
 import * as productos from './vistas/productos.js';
@@ -88,6 +89,8 @@ $('#tabs').addEventListener('click', (e) => {
 document.addEventListener('keydown', atajos);
 
 (async () => {
+  aplicarTema(temaActual());
+  montarSelector();
   if (await cargar()) {
     pintar();
     caja.enfocarBuscador();
