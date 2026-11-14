@@ -32,6 +32,13 @@ function crearVentana() {
   // BODEGA_SHOT=/ruta.png BODEGA_TAB=caja npx electron .
   if (process.env.BODEGA_SHOT) {
     win.webContents.once('did-finish-load', async () => {
+      // Tema para las capturas: BODEGA_TEMA=ios-glass
+      if (process.env.BODEGA_TEMA) {
+        await win.webContents.executeJavaScript(
+          `localStorage.setItem('tema', ${JSON.stringify(process.env.BODEGA_TEMA)}); location.reload();`,
+        );
+        await new Promise((r) => setTimeout(r, 900));
+      }
       if (process.env.BODEGA_TAB) {
         await win.webContents.executeJavaScript(`document.querySelector('[data-tab="${process.env.BODEGA_TAB}"]').click()`);
       }

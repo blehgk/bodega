@@ -24,6 +24,28 @@ Para el almacén de barrio que hoy anota las ventas en un cuaderno o en una plan
 
 La interfaz toma el objeto que ya está colgado en la pared de todo almacén: **el almanaque**. Papel de diario, tinta negra y un solo rojo —el de los domingos— para lo que hay que mirar: stock bajo, diferencias de caja, descuentos. Sin tarjetas, sin sombras, sin esquinas redondeadas: reglas y números, como un libro de cuentas. El número de cada celda de producto es su stock.
 
+## Pieles
+
+La interfaz viene en once pieles intercambiables desde **Ajustes → Apariencia**. Cambian la superficie, nunca la estructura: los mismos datos, el mismo flujo, otro idioma visual.
+
+![Once pieles de Bodega](docs/skins/hoja.png)
+
+| Piel | De qué va |
+|---|---|
+| Almanaque | Papel de diario, tinta y un rojo. La original. |
+| iOS · Liquid Glass | Capas translúcidas con desenfoque y bordes de luz. |
+| iOS · Listas | Listas agrupadas con separadores de medio píxel. |
+| Samsung · One UI | Bloques grandes, radios amplios, aire. |
+| Android · Material 3 | Superficies teñidas y elevación. |
+| Glassmorphism | Vidrio esmerilado sobre degradado de color. |
+| Neumorfismo | Relieve por luz, sin bordes. |
+| Windows · Fluent | Mica, radio de 8px, línea de acento. |
+| Neo-brutalismo | Borde negro de 3px y sombra dura. |
+| Terminal | Fósforo verde, todo monoespaciado. |
+| Editorial | Serif, reglas finas, aire. |
+
+Una piel es un CSS que redefine doce tokens y, si hace falta, algunos componentes. Cómo agregar la tuya: [`src/renderer/temas/README.md`](src/renderer/temas/README.md).
+
 ## Qué hace
 
 **Caja**
@@ -42,7 +64,7 @@ La interfaz toma el objeto que ya está colgado en la pared de todo almacén: **
 | `F2` | Cobrar |
 | `F3` | Dejar la venta en espera |
 | `F4` | Ver ventas en espera |
-| `Esc` | Limpiar el carrito |
+| `Esc` | Vaciar el carrito |
 
 **Gestión**
 - Productos con código, categoría, costo, precio y stock mínimo.
@@ -125,7 +147,8 @@ src/
 └── renderer/              UI: ES modules nativos, sin bundler
     ├── app.js             Enrutado, atajos y arranque
     ├── index.html         Estructura de las 8 vistas
-    ├── styles.css         Tokens + componentes (un archivo, por orden)
+    ├── styles.css         Tokens + componentes (la piel base)
+    ├── temas/             Pieles: un CSS por idioma visual + manifiesto
     ├── ui/
     │   ├── estado.js      Estado de la UI y puente con el main
     │   ├── formato.js     Moneda, fechas y escape (funciones puras)

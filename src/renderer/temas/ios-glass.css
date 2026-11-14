@@ -1,0 +1,152 @@
+/* ============================================================
+   iOS · Liquid Glass (iOS 26)
+   Tres movimientos: capas translúcidas con blur real, radios
+   grandes, y bordes de luz de 1px en lugar de líneas.
+   ============================================================ */
+
+:root {
+  --vidrio: rgba(255, 255, 255, 0.62);
+  --vidrio-borde: rgba(255, 255, 255, 0.75);
+  --tinta: #0b0b0f;
+  --tinta-2: #4b4b55;
+  --acento: #0a84ff;
+  --fondo: #eef1f7;
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 12% -10%, #cfe0ff 0%, transparent 55%),
+    radial-gradient(900px 600px at 95% 8%, #ffd9e8 0%, transparent 50%),
+    radial-gradient(900px 700px at 50% 110%, #d8fff1 0%, transparent 55%),
+    var(--fondo);
+  color: var(--tinta);
+  font-family: -apple-system, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+}
+
+/* La cabecera flota: el contenido pasa por detrás del vidrio. */
+.cabecera {
+  position: relative;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  color: var(--tinta);
+  border-bottom: 1px solid var(--vidrio-borde);
+}
+.cabecera-fila { padding: 14px 22px 10px; }
+#marca-nombre { font: 700 24px/1.1 -apple-system, "SF Pro Display", system-ui, sans-serif; letter-spacing: -0.6px; text-transform: none; }
+.cabecera-datos dt { color: var(--tinta-2); font: 500 11px/1 -apple-system, system-ui, sans-serif; letter-spacing: 0.2px; text-transform: none; }
+.cabecera-datos dd { color: var(--tinta); font: 600 15px/1.1 -apple-system, system-ui, sans-serif; }
+#cabecera-faltan { background: none; color: var(--acento); padding: 0; }
+
+#tabs { background: transparent; padding: 0 14px 6px; }
+#tabs button {
+  border-radius: 999px;
+  border: 0;
+  color: var(--tinta-2);
+  font: 600 12px/1 -apple-system, system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 6px 12px;
+}
+#tabs button.activo { background: var(--acento); color: #fff; }
+
+/* Superficies de vidrio */
+.ticket, .panel, .vacio-panel, .kpi, dialog {
+  background: var(--vidrio);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(20, 30, 60, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.ticket { border-radius: 24px; padding: 14px 16px 16px; }
+
+.grilla { background: transparent; border: 0; gap: 10px; }
+.producto {
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(20, 30, 60, 0.06);
+}
+.producto:hover { outline: 0; background: #fff; box-shadow: 0 8px 22px rgba(20, 30, 60, 0.12); }
+.producto .c { color: var(--tinta-2); font: 500 11px/1.2 -apple-system, system-ui, sans-serif; letter-spacing: 0.2px; text-transform: none; }
+.producto .n { font: 500 13px/1.3 -apple-system, system-ui, sans-serif; }
+.producto .p { font: 600 15px/1 -apple-system, system-ui, sans-serif; color: var(--tinta); }
+.producto .stock { color: var(--tinta-2); font: 600 13px/1 -apple-system, system-ui, sans-serif; }
+.producto.poco .stock { background: none; color: #ff9f0a; }
+.producto.agotado { background: rgba(255, 255, 255, 0.35); }
+.producto.agotado .stock { background: none; color: #ff453a; }
+
+input, select {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 9px 12px;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+input:focus, select:focus { outline: 3px solid rgba(10, 132, 255, 0.35); outline-offset: 0; border-color: var(--acento); }
+
+button.primario, button.secundario {
+  border-radius: 999px;
+  border: 0;
+  font: 600 13px/1 -apple-system, system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 10px 18px;
+}
+button.primario { background: var(--acento); color: #fff; box-shadow: 0 6px 16px rgba(10, 132, 255, 0.35); }
+button.primario:hover:not(:disabled) { background: #0070e0; }
+button.primario:disabled { background: rgba(120, 130, 150, 0.35); color: #fff; border: 0; }
+button.secundario { background: rgba(255, 255, 255, 0.75); color: var(--tinta); border: 1px solid rgba(0, 0, 0, 0.08); }
+button.secundario:disabled { border: 1px solid rgba(0, 0, 0, 0.06); color: #9aa0aa; }
+button.chico { padding: 6px 12px; font-size: 12px; }
+
+.total { border-top: 1px solid rgba(0, 0, 0, 0.08); }
+.total strong { font: 700 32px/1 -apple-system, system-ui, sans-serif; letter-spacing: -1px; }
+.total span { font: 500 12px/1 -apple-system, system-ui, sans-serif; letter-spacing: 0.2px; text-transform: none; }
+
+.linea { border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+.linea .ctrl button { border-radius: 999px; border: 1px solid rgba(0, 0, 0, 0.1); background: #fff; }
+.linea .ctrl .quitar { color: #ff3b30; text-transform: none; letter-spacing: 0; font-size: 12px; }
+
+th { background: rgba(255, 255, 255, 0.9); border-bottom: 1px solid rgba(0, 0, 0, 0.08); color: var(--tinta-2); text-transform: none; letter-spacing: 0; font: 600 12px/1.3 -apple-system, system-ui, sans-serif; }
+td { border-bottom: 1px solid rgba(0, 0, 0, 0.06); font-family: -apple-system, system-ui, sans-serif; }
+td.num, th.num { font-family: -apple-system, system-ui, sans-serif; }
+tbody tr:hover { background: rgba(255, 255, 255, 0.6); }
+
+.kpis { border: 0; gap: 10px; }
+.kpi { padding: 14px 16px; }
+.kpi span { color: var(--tinta-2); text-transform: none; letter-spacing: 0; font: 500 12px/1.3 -apple-system, system-ui, sans-serif; }
+.kpi strong { font: 700 24px/1.1 -apple-system, system-ui, sans-serif; letter-spacing: -0.6px; }
+
+.titulo, #form-modal h2 { font-family: -apple-system, "SF Pro Display", system-ui, sans-serif; text-transform: none; letter-spacing: -0.4px; }
+.titulo-seccion { border-bottom: 1px solid rgba(0, 0, 0, 0.08); text-transform: none; letter-spacing: 0; font: 600 12px/1.3 -apple-system, system-ui, sans-serif; }
+
+dialog { border-radius: 26px; box-shadow: 0 30px 80px rgba(20, 30, 60, 0.25); }
+dialog::backdrop { background: rgba(20, 25, 40, 0.35); backdrop-filter: blur(6px); }
+
+.aviso { border-radius: 999px; background: rgba(20, 20, 25, 0.9); border: 0; backdrop-filter: blur(10px); }
+.aviso.error { background: #ff3b30; }
+
+::-webkit-scrollbar-thumb { background: rgba(60, 70, 90, 0.25); border-radius: 10px; }
+
+/* ------------------------------------------------------------
+   CONTRATO DE TOKENS
+   Toda piel redefine estos valores. Lo que la base pinte con
+   var(--papel) o var(--tinta) queda así dentro de la piel, sin
+   necesidad de repetir regla por regla.
+   ------------------------------------------------------------ */
+:root {
+  --papel: #ffffff;
+  --papel-hueso: #ffffff;
+  --papel-banda: #f4f6fb;
+  --tinta: #0b0b0f;
+  --tinta-2: #4b4b55;
+  --tinta-3: #6b6b78;
+  --rojo: #ff3b30;
+  --linea: 1px solid rgba(0,0,0,0.10);
+  --linea-suave: 1px solid rgba(0,0,0,0.06);
+  --condensada: "SF Pro Text", -apple-system, system-ui, sans-serif;
+  --texto: -apple-system, system-ui, sans-serif;
+  --mono: "SF Mono", ui-monospace, monospace;
+}

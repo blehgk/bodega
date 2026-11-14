@@ -1,0 +1,150 @@
+/* ============================================================
+   Glassmorphism
+   Tres movimientos: un fondo con color de verdad, paneles de
+   vidrio esmerilado encima, y bordes de luz de 1px.
+   El texto va en blanco: el vidrio solo funciona sobre oscuro.
+   ============================================================ */
+
+:root {
+  --vidrio: rgba(255, 255, 255, 0.1);
+  --vidrio-2: rgba(255, 255, 255, 0.16);
+  --borde: rgba(255, 255, 255, 0.28);
+  --tinta: #ffffff;
+  --tinta-2: rgba(255, 255, 255, 0.72);
+  --acento: #7cf5d0;
+}
+
+body {
+  background:
+    radial-gradient(900px 700px at 8% 4%, #6a3cff 0%, transparent 55%),
+    radial-gradient(800px 600px at 92% 12%, #ff3c8e 0%, transparent 50%),
+    radial-gradient(900px 800px at 50% 100%, #00d2ff 0%, transparent 55%),
+    #0b0a1f;
+  background-attachment: fixed;
+  color: var(--tinta);
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.cabecera {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  color: var(--tinta);
+  border-bottom: 1px solid var(--borde);
+}
+#marca-nombre { font: 700 24px/1.1 Inter, system-ui, sans-serif; letter-spacing: -0.5px; text-transform: none; }
+.cabecera-datos dt { color: var(--tinta-2); font: 500 11px/1 Inter, system-ui, sans-serif; letter-spacing: 0.6px; text-transform: uppercase; }
+.cabecera-datos dd { color: var(--tinta); font: 600 15px/1.1 Inter, system-ui, sans-serif; }
+#cabecera-faltan { background: var(--acento); color: #06251f; padding: 1px 6px; border-radius: 6px; }
+
+#tabs { background: transparent; padding: 0 14px 6px; gap: 4px; }
+#tabs button {
+  border: 0;
+  border-radius: 12px;
+  color: var(--tinta-2);
+  font: 500 12px/1 Inter, system-ui, sans-serif;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  padding: 8px 14px;
+}
+#tabs button.activo { background: var(--vidrio-2); color: #fff; border: 1px solid var(--borde); }
+
+.ticket, .panel, .vacio-panel, .kpi, dialog {
+  background: var(--vidrio);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.grilla { background: transparent; border: 0; gap: 10px; }
+.producto {
+  background: var(--vidrio);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 10px 12px;
+  color: var(--tinta);
+}
+.producto:hover { outline: 0; background: var(--vidrio-2); }
+.producto .c { color: var(--tinta-2); font: 500 11px/1.2 Inter, system-ui, sans-serif; letter-spacing: 0.8px; text-transform: uppercase; }
+.producto .n { font: 500 13px/1.3 Inter, system-ui, sans-serif; }
+.producto .p { font: 700 15px/1 Inter, system-ui, sans-serif; }
+.producto .stock { color: var(--tinta-2); font: 600 13px/1 Inter, system-ui, sans-serif; }
+.producto.poco .stock { background: none; color: #ffd166; }
+.producto.agotado { background: rgba(255, 255, 255, 0.04); }
+.producto.agotado .stock { background: none; color: #ff6b81; }
+
+input, select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  color: #fff;
+  padding: 10px 13px;
+  font-family: Inter, system-ui, sans-serif;
+}
+input::placeholder { color: rgba(255, 255, 255, 0.45); font-style: normal; }
+input:focus, select:focus { outline: 2px solid var(--acento); outline-offset: 0; }
+
+button.primario, button.secundario {
+  border-radius: 12px;
+  font: 600 13px/1 Inter, system-ui, sans-serif;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  padding: 11px 18px;
+}
+button.primario { background: var(--acento); color: #06251f; border: 1px solid rgba(255, 255, 255, 0.4); }
+button.primario:hover:not(:disabled) { background: #9bffe0; }
+button.primario:disabled { background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.12); }
+button.secundario { background: var(--vidrio); color: #fff; border: 1px solid var(--borde); }
+button.secundario:hover:not(:disabled) { background: var(--vidrio-2); }
+button.secundario:disabled { color: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.12); }
+
+.total { border-top: 1px solid var(--borde); }
+.total strong { font: 700 32px/1 Inter, system-ui, sans-serif; letter-spacing: -1px; }
+.total span { font: 500 12px/1 Inter, system-ui, sans-serif; letter-spacing: 0.8px; text-transform: uppercase; color: var(--tinta-2); }
+
+.linea { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.linea .ctrl button { border: 1px solid var(--borde); border-radius: 8px; background: rgba(255, 255, 255, 0.08); color: #fff; }
+.linea .ctrl .quitar { color: #ff8fa3; text-transform: none; letter-spacing: 0; }
+
+th { background: rgba(255, 255, 255, 0.1); border-bottom: 1px solid var(--borde); color: var(--tinta-2); text-transform: uppercase; letter-spacing: 0.8px; font: 600 11px/1.3 Inter, system-ui, sans-serif; }
+td { border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-family: Inter, system-ui, sans-serif; }
+td.num, th.num { font-family: Inter, system-ui, sans-serif; }
+tbody tr:hover { background: rgba(255, 255, 255, 0.08); }
+
+.kpis { border: 0; gap: 10px; }
+.kpi span { color: var(--tinta-2); text-transform: uppercase; letter-spacing: 0.8px; font: 600 11px/1.3 Inter, system-ui, sans-serif; }
+.kpi strong { font: 700 24px/1.1 Inter, system-ui, sans-serif; letter-spacing: -0.5px; }
+
+.titulo, #form-modal h2 { font-family: Inter, system-ui, sans-serif; text-transform: none; letter-spacing: -0.4px; }
+.titulo-seccion { border-bottom: 1px solid var(--borde); text-transform: uppercase; letter-spacing: 0.8px; font: 600 11px/1.4 Inter, system-ui, sans-serif; color: var(--tinta-2); }
+
+dialog { border-radius: 22px; }
+dialog::backdrop { background: rgba(6, 6, 20, 0.6); backdrop-filter: blur(8px); }
+.aviso { border-radius: 12px; background: rgba(10, 10, 30, 0.9); border: 1px solid var(--borde); }
+.aviso.error { background: #ff3c8e; color: #fff; }
+
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.25); border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; border-left: 0; }
+
+/* ------------------------------------------------------------
+   CONTRATO DE TOKENS
+   Toda piel redefine estos valores. Lo que la base pinte con
+   var(--papel) o var(--tinta) queda así dentro de la piel, sin
+   necesidad de repetir regla por regla.
+   ------------------------------------------------------------ */
+:root {
+  --papel: rgba(255,255,255,0.10);
+  --papel-hueso: rgba(255,255,255,0.16);
+  --papel-banda: rgba(255,255,255,0.07);
+  --tinta: #ffffff;
+  --tinta-2: rgba(255,255,255,0.72);
+  --tinta-3: rgba(255,255,255,0.55);
+  --rojo: #ff6b81;
+  --linea: 1px solid rgba(255,255,255,0.28);
+  --linea-suave: 1px solid rgba(255,255,255,0.14);
+  --condensada: Inter, system-ui, sans-serif;
+  --texto: Inter, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}

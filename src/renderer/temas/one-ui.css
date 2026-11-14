@@ -1,0 +1,135 @@
+/* ============================================================
+   Samsung · One UI
+   Tres movimientos: bloques grandes con aire arriba y acciones
+   al alcance del pulgar, radios de 26px, sombras muy suaves.
+   ============================================================ */
+
+:root {
+  --fondo: #f4f4f6;
+  --tarjeta: #ffffff;
+  --tinta: #101013;
+  --tinta-2: #6b6b73;
+  --azul: #2f7bff;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: "SamsungOne", "Segoe UI", system-ui, sans-serif;
+}
+
+.cabecera {
+  background: var(--fondo);
+  color: var(--tinta);
+  border-bottom: 0;
+}
+.cabecera-fila { padding: 18px 24px 6px; }
+#marca-nombre { font: 700 26px/1.15 "SamsungOne", system-ui, sans-serif; letter-spacing: -0.6px; text-transform: none; }
+.cabecera-datos dt { color: var(--tinta-2); font: 500 11px/1 system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+.cabecera-datos dd { color: var(--tinta); font: 700 16px/1.1 system-ui, sans-serif; }
+#cabecera-faltan { background: none; color: var(--azul); padding: 0; }
+
+#tabs { background: transparent; padding: 0 18px 8px; gap: 6px; }
+#tabs button {
+  border: 0;
+  border-radius: 14px;
+  color: var(--tinta-2);
+  font: 600 12px/1 system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 8px 14px;
+}
+#tabs button.activo { background: var(--tarjeta); color: var(--tinta); box-shadow: 0 2px 8px rgba(16, 16, 19, 0.08); }
+
+.ticket, .panel, .vacio-panel, .kpi, dialog {
+  background: var(--tarjeta);
+  border: 0;
+  border-radius: 26px;
+  box-shadow: 0 2px 12px rgba(16, 16, 19, 0.06);
+}
+.ticket { padding: 18px 18px 20px; }
+
+.grilla { background: transparent; border: 0; gap: 10px; }
+.producto {
+  background: var(--tarjeta);
+  border: 0;
+  border-radius: 20px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 10px rgba(16, 16, 19, 0.05);
+}
+.producto:hover { outline: 0; transform: none; box-shadow: 0 6px 18px rgba(16, 16, 19, 0.1); }
+.producto .c { color: var(--tinta-2); font: 500 11px/1.2 system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+.producto .n { font: 600 14px/1.3 system-ui, sans-serif; }
+.producto .p { font: 700 16px/1 system-ui, sans-serif; }
+.producto .stock { color: var(--tinta-2); font: 600 13px/1 system-ui, sans-serif; }
+.producto.poco .stock { background: none; color: #ff8a00; }
+.producto.agotado { box-shadow: none; background: #ececf0; }
+.producto.agotado .stock { background: none; color: #e5484d; }
+
+input, select {
+  background: #ececf0;
+  border: 0;
+  border-radius: 16px;
+  padding: 11px 14px;
+  font-family: system-ui, sans-serif;
+}
+input:focus, select:focus { outline: 2px solid var(--azul); outline-offset: -2px; }
+
+button.primario, button.secundario {
+  border: 0;
+  border-radius: 18px;
+  font: 700 14px/1 system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 12px 20px;
+}
+button.primario { background: var(--azul); color: #fff; }
+button.primario:disabled { background: #d8d8de; color: #9a9aa2; border: 0; }
+button.secundario { background: #ececf0; color: var(--tinta); }
+button.secundario:disabled { background: #f2f2f5; color: #b4b4bc; border: 0; }
+
+.total { border-top: 0; margin-top: 6px; }
+.total strong { font: 800 34px/1 system-ui, sans-serif; letter-spacing: -1.2px; }
+.total span { font: 500 13px/1 system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--tinta-2); }
+
+.linea { border-bottom: 1px solid #ececf0; }
+.linea .ctrl button { border: 0; border-radius: 10px; background: #ececf0; }
+.linea .ctrl .quitar { color: #e5484d; text-transform: none; letter-spacing: 0; }
+
+th { background: transparent; border-bottom: 1px solid #e4e4ea; color: var(--tinta-2); text-transform: none; letter-spacing: 0; font: 600 12px/1.3 system-ui, sans-serif; }
+td { border-bottom: 1px solid #f0f0f4; font-family: system-ui, sans-serif; }
+td.num, th.num { font-family: system-ui, sans-serif; }
+tbody tr:hover { background: #f8f8fb; }
+
+.kpis { border: 0; gap: 10px; }
+.kpi span { color: var(--tinta-2); text-transform: none; letter-spacing: 0; font: 500 12px/1.3 system-ui, sans-serif; }
+.kpi strong { font: 800 26px/1.1 system-ui, sans-serif; letter-spacing: -0.8px; }
+
+.titulo, #form-modal h2 { font-family: system-ui, sans-serif; text-transform: none; letter-spacing: -0.5px; font-weight: 800; }
+.titulo-seccion { border-bottom: 0; text-transform: none; letter-spacing: 0; font: 700 13px/1.4 system-ui, sans-serif; color: var(--tinta); }
+
+dialog { border-radius: 28px; box-shadow: 0 24px 60px rgba(16, 16, 19, 0.2); }
+dialog::backdrop { background: rgba(16, 16, 19, 0.4); }
+.aviso { border-radius: 18px; background: #101013; border: 0; }
+.aviso.error { background: #e5484d; }
+
+/* ------------------------------------------------------------
+   CONTRATO DE TOKENS
+   Toda piel redefine estos valores. Lo que la base pinte con
+   var(--papel) o var(--tinta) queda así dentro de la piel, sin
+   necesidad de repetir regla por regla.
+   ------------------------------------------------------------ */
+:root {
+  --papel: #ffffff;
+  --papel-hueso: #ffffff;
+  --papel-banda: #ececf0;
+  --tinta: #101013;
+  --tinta-2: #6b6b73;
+  --tinta-3: #8e8e96;
+  --rojo: #e5484d;
+  --linea: 0 solid transparent;
+  --linea-suave: 1px solid #ececf0;
+  --condensada: "SamsungOne", system-ui, sans-serif;
+  --texto: system-ui, sans-serif;
+  --mono: "Roboto Mono", ui-monospace, monospace;
+}
