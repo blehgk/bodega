@@ -2,6 +2,18 @@
 
 Todas las versiones publicadas de Bodega. El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa [versionado semántico](https://semver.org/lang/es/).
 
+## [0.3.1] — 2026-11-14
+
+### Agregado
+
+- Adaptación a cualquier tamaño de ventana: de 880×560 a monitores grandes. El ticket cede ancho antes que la grilla, y en ventanas angostas la venta pasa abajo.
+- CI en GitHub Actions (Node 20 y 22), plantillas de issue y de pull request, changelog y guía de contribución.
+
+### Corregido
+
+- La fila incompleta de la grilla dejaba ver el fondo negro entre celdas.
+- El texto funcional por debajo de 11px en etiquetas, badges y encabezados de tabla.
+
 ## [0.3.0] — 2026-11-13
 
 Rediseño completo de la interfaz.

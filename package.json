@@ -1,7 +1,7 @@
 {
   "name": "bodega",
   "productName": "Bodega",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Gestor de stock y ventas para almacenes y kioscos chilenos — offline, sin servidor",
   "main": "src/main/index.js",
   "author": "Zeta",

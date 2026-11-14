@@ -17,8 +17,8 @@ Para el almacén de barrio que hoy anota las ventas en un cuaderno o en una plan
 
 | Plataforma | Archivo |
 |---|---|
-| Windows 10/11 (x64) | [`Bodega Setup 0.3.0.exe`](https://github.com/blehgk/bodega/releases/latest) |
-| Linux | [`Bodega-0.3.0.AppImage`](https://github.com/blehgk/bodega/releases/latest) |
+| Windows 10/11 (x64) | [`Bodega Setup 0.3.1.exe`](https://github.com/blehgk/bodega/releases/latest) |
+| Linux | [`Bodega-0.3.1.AppImage`](https://github.com/blehgk/bodega/releases/latest) |
 
 ## Diseño
 
