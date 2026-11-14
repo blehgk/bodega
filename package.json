@@ -1,0 +1,17 @@
+{
+  "name": "bodega",
+  "productName": "Bodega",
+  "version": "0.1.0",
+  "description": "Gestor de stock, ventas y proveedores para kioscos y almacenes",
+  "main": "src/main.js",
+  "author": "Zeta",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0"
+  }
+}

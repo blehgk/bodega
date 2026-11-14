@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <title>Bodega</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="lateral">
+    <div class="marca">
+      <strong>Bodega</strong>
+      <span>stock y ventas</span>
+    </div>
+    <nav id="tabs">
+      <button data-tab="caja" class="activo">Caja</button>
+      <button data-tab="productos">Productos</button>
+      <button data-tab="stock">Stock</button>
+      <button data-tab="proveedores">Proveedores</button>
+      <button data-tab="reportes">Reportes</button>
+    </nav>
+    <div class="pie" id="pie"></div>
+  </aside>
+
+  <main>
+    <section class="vista activa" id="vista-caja">
+      <header class="barra">
+        <h1>Caja</h1>
+        <input id="buscar" type="search" placeholder="Buscar producto o escanear código…" autocomplete="off">
+      </header>
+      <div class="dos">
+        <div id="grilla" class="grilla"></div>
+        <div class="ticket">
+          <h2>Venta</h2>
+          <div id="carrito" class="carrito"></div>
+          <div class="total"><span>Total</span><strong id="total">$0,00</strong></div>
+          <select id="medio">
+            <option>Efectivo</option>
+            <option>Débito</option>
+            <option>Crédito</option>
+            <option>Transferencia</option>
+            <option>QR</option>
+          </select>
+          <button id="cobrar" class="primario">Cobrar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="vista" id="vista-productos">
+      <header class="barra">
+        <h1>Productos</h1>
+        <div class="acciones">
+          <input id="buscar-producto" type="search" placeholder="Filtrar…" autocomplete="off">
+          <button id="nuevo-producto" class="primario">Nuevo producto</button>
+        </div>
+      </header>
+      <div id="tabla-productos" class="panel"></div>
+    </section>
+
+    <section class="vista" id="vista-stock">
+      <header class="barra">
+        <h1>Stock</h1>
+        <span class="pista">Verde: OK · Ámbar: en el mínimo · Rojo: sin stock</span>
+      </header>
+      <div id="tabla-stock" class="panel"></div>
+    </section>
+
+    <section class="vista" id="vista-proveedores">
+      <header class="barra">
+        <h1>Proveedores</h1>
+        <button id="nuevo-proveedor" class="primario">Nuevo proveedor</button>
+      </header>
+      <div class="dos">
+        <div id="lista-proveedores" class="panel"></div>
+        <div id="compras" class="panel"></div>
+      </div>
+    </section>
+
+    <section class="vista" id="vista-reportes">
+      <header class="barra">
+        <h1>Reportes</h1>
+        <div class="acciones" id="rangos">
+          <button data-rango="hoy">Hoy</button>
+          <button data-rango="semana" class="activo">7 días</button>
+          <button data-rango="mes">30 días</button>
+        </div>
+      </header>
+      <div id="reporte" class="panel"></div>
+    </section>
+  </main>
+
+  <dialog id="modal">
+    <form method="dialog" id="form-modal"></form>
+  </dialog>
+  <div id="aviso" class="aviso"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
