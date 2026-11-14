@@ -2,7 +2,8 @@
 const bd = window.api;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const plata = (c) => '$' + (c / 100).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+// CLP no usa decimales: se guarda en centavos y se muestra redondeado.
+const plata = (c) => '$' + Math.round(c / 100).toLocaleString('es-CL');
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const isoLocal = (f) => `${f.getFullYear()}-${String(f.getMonth() + 1).padStart(2, '0')}-${String(f.getDate()).padStart(2, '0')}`;
 
@@ -74,7 +75,7 @@ function visibles() {
   const f = filtro.trim().toLowerCase();
   return st.productos
     .filter((p) => !f || p.nombre.toLowerCase().includes(f) || (p.codigo || '').includes(f))
-    .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+    .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es-CL'));
 }
 
 function pintarCaja() {
@@ -105,7 +106,7 @@ function pintarCarrito() {
       </span>
     </div>`;
   }).join('');
-  $('#carrito').innerHTML = filas || '<p class="vacio">Tocá un producto para agregarlo</p>';
+  $('#carrito').innerHTML = filas || '<p class="vacio">Toca un producto para agregarlo</p>';
   const total = carrito.reduce((s, l) => {
     const p = st.productos.find((x) => x.id === l.productoId);
     return s + (p ? p.precio * l.cantidad : 0);
@@ -141,7 +142,7 @@ function pintarProductos() {
   const f = filtroProd.trim().toLowerCase();
   const lista = st.productos
     .filter((p) => !f || p.nombre.toLowerCase().includes(f) || (p.codigo || '').includes(f) || p.categoria.toLowerCase().includes(f))
-    .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+    .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es-CL'));
   $('#tabla-productos').innerHTML = `<table>
     <thead><tr><th>Producto</th><th>Código</th><th>Categoría</th><th class="num">Costo</th><th class="num">Precio</th><th class="num">Stock</th><th></th></tr></thead>
     <tbody>${lista.map((p) => `<tr>
@@ -187,7 +188,7 @@ function formProducto(p = {}) {
 
 /* ---------------- stock ---------------- */
 function pintarStock() {
-  const lista = [...st.productos].sort((a, b) => a.stock - b.stock || a.nombre.localeCompare(b.nombre, 'es'));
+  const lista = [...st.productos].sort((a, b) => a.stock - b.stock || a.nombre.localeCompare(b.nombre, 'es-CL'));
   $('#tabla-stock').innerHTML = `<table>
     <thead><tr><th>Producto</th><th>Categoría</th><th class="num">Stock</th><th class="num">Mínimo</th><th>Estado</th><th></th></tr></thead>
     <tbody>${lista.map((p) => {
@@ -207,7 +208,7 @@ function pintarStock() {
 
 function formAjuste(p) {
   abrirModal(`Ajustar stock · ${p.nombre}`, `
-    <p class="pista">Stock actual: ${p.stock}. Usá números negativos para descontar (rotura, vencimiento, robo).</p>
+    <p class="pista">Stock actual: ${p.stock}. Usa números negativos para descontar (rotura, vencimiento, robo).</p>
     <div class="doble">
       <div class="campo"><label>Cantidad</label><input name="cantidad" type="number" required value="1"></div>
       <div class="campo"><label>Motivo</label><input name="motivo" maxlength="80" value="Ajuste manual"></div>
@@ -231,7 +232,7 @@ function pintarProveedores() {
     <thead><tr><th>Últimas compras</th><th class="num">Total</th></tr></thead>
     <tbody>${ultimas.map((c) => {
       const prov = st.proveedores.find((x) => x.id === c.proveedorId);
-      return `<tr><td>${esc(prov?.nombre || '—')}<br><small class="pista">${new Date(c.fecha).toLocaleDateString('es-AR')} · ${c.items.length} ítem(s)</small></td><td class="num">${plata(c.total)}</td></tr>`;
+      return `<tr><td>${esc(prov?.nombre || '—')}<br><small class="pista">${new Date(c.fecha).toLocaleDateString('es-CL')} · ${c.items.length} producto(s)</small></td><td class="num">${plata(c.total)}</td></tr>`;
     }).join('') || '<tr><td colspan="2" class="vacio">Sin compras registradas</td></tr>'}</tbody></table>`;
 }
 
@@ -251,7 +252,7 @@ function formCompra(proveedorId) {
       <div class="campo boton"><button type="button" class="secundario" id="c-add">Agregar ítem</button></div>
     </div>
     <div id="c-lineas" class="campos"></div>`, (fd) => {
-    if (!lineas.length) { avisar('Agregá al menos un ítem', true); return false; }
+    if (!lineas.length) { avisar('Agrega al menos un ítem', true); return false; }
     return mutar(bd.compra(Number(fd.get('proveedor')), lineas.map((l) => ({ productoId: l.productoId, cantidad: l.cantidad, costo: l.costo }))));
   });
 
@@ -296,7 +297,7 @@ async function pintarReportes() {
   const diasRango = [];
   for (let i = dias; i >= 0; i--) {
     const f = new Date(hoy.getTime() - i * 864e5);
-    diasRango.push({ clave: isoLocal(f), etiqueta: f.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit' }) });
+    diasRango.push({ clave: isoLocal(f), etiqueta: f.toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit' }) });
   }
   const maximo = Math.max(1, ...diasRango.map((x) => d.porDia[x.clave] || 0));
 

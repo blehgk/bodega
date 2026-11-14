@@ -1,6 +1,6 @@
 # Bodega
 
-Gestor de stock y ventas para kioscos y almacenes. App de escritorio que funciona sin internet y sin servidor: los datos viven en la máquina del comercio.
+Gestor de stock y ventas para almacenes y kioscos chilenos. App de escritorio que funciona sin internet y sin servidor: los datos viven en la máquina del comercio. Precios en CLP, sin decimales.
 
 ![Caja](docs/caja.png)
 
@@ -40,7 +40,7 @@ Un JSON en el directorio de usuario de la app (`~/.config/Bodega/bodega.json` en
 - Escritura atómica (archivo temporal + rename): nunca queda un archivo a medias.
 - Si el archivo está corrupto, se aparta como `bodega.json.corrupto-<fecha>` y la app arranca limpia en lugar de pisarlo.
 - Respaldo automático diario, se conservan los últimos 7.
-- Los precios se guardan en centavos enteros: las cuentas de plata no arrastran errores de redondeo.
+- Los precios se guardan en centavos enteros y se muestran en pesos chilenos sin decimales: las cuentas no arrastran errores de redondeo.
 - Las ventas guardan nombre, precio y costo del momento: cambiar un precio no reescribe la historia.
 
 ## Stack
@@ -49,7 +49,7 @@ Electron + HTML/CSS/JS sin bundler. Sin dependencias nativas, sin base de datos,
 
 ## Qué no hace (a propósito)
 
-Facturación electrónica (AFIP), multi-usuario, sincronización en la nube, lector de código de barras físico, impresora fiscal. Empaquetado `.exe`: pendiente.
+Boleta electrónica del SII, multi-usuario, sincronización en la nube, lector de código de barras físico, impresora de boletas. Empaquetado `.exe`: pendiente.
 
 ## Licencia
 
