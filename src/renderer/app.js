@@ -19,25 +19,27 @@ const VISTAS = { caja, productos, stock, proveedores, clientes, reportes, cierre
 
 /* ---------- pintado global ---------- */
 
-function pintarPie() {
-  const hoy = isoLocal(new Date());
+// La cabecera es la banda del almanaque: quién es el almacén, qué día es y cómo va el día.
+function pintarCabecera() {
+  const ahora = new Date();
+  const hoy = isoLocal(ahora);
   const vendido = S.datos.ventas
     .filter((v) => !v.anulada && isoLocal(new Date(v.fecha)) === hoy)
     .reduce((s, v) => s + v.total, 0);
   const faltan = S.datos.productos.filter((p) => p.stock <= p.stockMinimo).length;
 
-  $('#pie').innerHTML = `Vendido hoy<br><b>${plata(vendido)}</b><br>${faltan} producto${faltan === 1 ? '' : 's'} por reponer`;
-}
-
-// El nombre del comercio encabeza la barra lateral: la app es del almacén, no nuestra.
-function pintarMarca() {
   const nombre = S.datos.negocio?.nombre || 'Bodega';
-  $('#marca-nombre').textContent = nombre.length > 22 ? `${nombre.slice(0, 21)}…` : nombre;
+  $('#marca-nombre').textContent = nombre;
+
+  $('#cabecera-fecha').textContent = ahora
+    .toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' })
+    .replace(/^./, (l) => l.toUpperCase());
+  $('#cabecera-vendido').textContent = plata(vendido);
+  $('#cabecera-faltan').textContent = String(faltan);
 }
 
 export function pintar() {
-  pintarPie();
-  pintarMarca();
+  pintarCabecera();
   VISTAS[S.tab].pintar();
 }
 

@@ -27,11 +27,11 @@ export function pintar() {
 
   $('#grilla').innerHTML = lista.length
     ? lista.map((p) => `
-      <button class="producto${p.stock ? '' : ' agotado'}" data-id="${p.id}" ${p.stock ? '' : 'disabled'}>
+      <button class="producto${p.stock ? '' : ' agotado'}${p.stock <= p.stockMinimo ? ' poco' : ''}" data-id="${p.id}" ${p.stock ? '' : 'disabled'}>
+        <span class="stock">${p.stock}</span>
         <span class="c">${esc(p.categoria)}</span>
         <span class="n">${esc(p.nombre)}</span>
         <span class="p">${plata(p.precio)}</span>
-        <span class="s">${p.stock} en stock</span>
       </button>`).join('')
     : `<div class="vacio-panel">
          <p>Sin resultados para “${esc(S.filtro)}”</p>

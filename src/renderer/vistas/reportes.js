@@ -63,7 +63,8 @@ export async function pintar() {
       <div>
         <p class="titulo-seccion">Para reponer</p>
         <table><tbody>${d.faltantes.map((f) => `<tr>
-          <td>${esc(f.nombre)}</td><td class="num">${f.stock} u.</td>
+          <td>${esc(f.nombre)}</td>
+          <td class="num ${f.stock === 0 ? 'rojo' : ''}">${f.stock === 0 ? 'sin stock' : `quedan ${f.stock}`}</td>
         </tr>`).join('') || '<tr><td class="vacio">Todo en orden</td></tr>'}</tbody></table>
       </div>
     </div>

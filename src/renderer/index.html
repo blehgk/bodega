@@ -7,10 +7,14 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <aside class="lateral">
-    <div class="marca">
-      <strong id="marca-nombre">Bodega</strong>
-      <span>stock y ventas</span>
+  <header class="cabecera">
+    <div class="cabecera-fila">
+      <h1 id="marca-nombre">Bodega</h1>
+      <dl class="cabecera-datos">
+        <div><dt>Hoy</dt><dd id="cabecera-fecha">—</dd></div>
+        <div><dt>Vendido</dt><dd id="cabecera-vendido">$0</dd></div>
+        <div><dt>Por reponer</dt><dd id="cabecera-faltan">0</dd></div>
+      </dl>
     </div>
     <nav id="tabs">
       <button data-tab="caja" class="activo">Caja</button>
@@ -19,22 +23,19 @@
       <button data-tab="proveedores">Proveedores</button>
       <button data-tab="clientes">Clientes</button>
       <button data-tab="reportes">Reportes</button>
-      <button data-tab="cierre">Cierre de caja</button>
+      <button data-tab="cierre">Cierre</button>
       <button data-tab="ajustes">Ajustes</button>
     </nav>
-    <div class="pie" id="pie"></div>
-  </aside>
+  </header>
 
   <main>
     <section class="vista activa" id="vista-caja">
-      <header class="barra">
-        <h1>Caja</h1>
+      <div class="barra">
         <div class="buscador">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
-          <input id="buscar" type="search" placeholder="Buscar producto o escanear código" autocomplete="off" spellcheck="false">
+          <input id="buscar" type="search" placeholder="Buscar o escanear código" autocomplete="off" spellcheck="false">
         </div>
         <select id="cliente" title="Cliente de la venta" aria-label="Cliente de la venta"></select>
-      </header>
+      </div>
 
       <div class="dos">
         <div id="grilla" class="grilla"></div>
@@ -82,36 +83,36 @@
       <div class="atajos">
         <span><kbd>F1</kbd> buscar</span>
         <span><kbd>F2</kbd> cobrar</span>
-        <span><kbd>F3</kbd> dejar en espera</span>
-        <span><kbd>F4</kbd> ventas en espera</span>
+        <span><kbd>F3</kbd> espera</span>
+        <span><kbd>F4</kbd> en espera</span>
         <span><kbd>Esc</kbd> limpiar</span>
       </div>
     </section>
 
     <section class="vista" id="vista-productos">
-      <header class="barra">
-        <h1>Productos</h1>
+      <div class="barra">
+        <h2 class="titulo">Productos</h2>
         <div class="acciones">
           <input id="buscar-producto" type="search" placeholder="Filtrar por nombre, código o categoría" autocomplete="off">
           <button id="nuevo-producto" class="primario">Nuevo producto</button>
         </div>
-      </header>
+      </div>
       <div id="tabla-productos" class="panel"></div>
     </section>
 
     <section class="vista" id="vista-stock">
-      <header class="barra">
-        <h1>Stock</h1>
-        <span class="pista">Verde: OK · Ámbar: en el mínimo · Rojo: sin stock</span>
-      </header>
+      <div class="barra">
+        <h2 class="titulo">Stock</h2>
+        <span class="pista">En rojo, lo que llegó al mínimo</span>
+      </div>
       <div id="tabla-stock" class="panel"></div>
     </section>
 
     <section class="vista" id="vista-proveedores">
-      <header class="barra">
-        <h1>Proveedores</h1>
+      <div class="barra">
+        <h2 class="titulo">Proveedores</h2>
         <button id="nuevo-proveedor" class="primario">Nuevo proveedor</button>
-      </header>
+      </div>
       <div class="dos">
         <div id="lista-proveedores" class="panel"></div>
         <div id="compras" class="panel"></div>
@@ -119,37 +120,37 @@
     </section>
 
     <section class="vista" id="vista-clientes">
-      <header class="barra">
-        <h1>Clientes</h1>
+      <div class="barra">
+        <h2 class="titulo">Clientes</h2>
         <button id="nuevo-cliente" class="primario">Nuevo cliente</button>
-      </header>
+      </div>
       <div id="tabla-clientes" class="panel"></div>
     </section>
 
     <section class="vista" id="vista-reportes">
-      <header class="barra">
-        <h1>Reportes</h1>
+      <div class="barra">
+        <h2 class="titulo">Reportes</h2>
         <div class="acciones" id="rangos">
           <button data-rango="hoy">Hoy</button>
           <button data-rango="semana" class="activo">7 días</button>
           <button data-rango="mes">30 días</button>
         </div>
-      </header>
+      </div>
       <div id="reporte" class="panel"></div>
     </section>
 
     <section class="vista" id="vista-cierre">
-      <header class="barra">
-        <h1>Cierre de caja</h1>
+      <div class="barra">
+        <h2 class="titulo">Cierre de caja</h2>
         <span class="pista" id="cierre-fecha"></span>
-      </header>
+      </div>
       <div id="cierre" class="panel"></div>
     </section>
 
     <section class="vista" id="vista-ajustes">
-      <header class="barra">
-        <h1>Ajustes</h1>
-      </header>
+      <div class="barra">
+        <h2 class="titulo">Ajustes</h2>
+      </div>
       <div id="ajustes" class="panel"></div>
     </section>
   </main>
