@@ -80,7 +80,7 @@ button, input, select { font: inherit; color: inherit; }
 .cabecera-datos { display: flex; gap: 26px; margin: 0; }
 .cabecera-datos div { display: grid; gap: 1px; }
 .cabecera-datos dt {
-  font: 600 10px/1 var(--condensada);
+  font: 600 11px/1 var(--condensada);
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: #b8b1a0;
@@ -225,7 +225,7 @@ button.chico { padding: 5px 9px; font-size: 11px; letter-spacing: 1px; }
 .producto.poco .stock { color: var(--rojo); }
 
 .producto .c {
-  font: 600 9px/1.2 var(--condensada);
+  font: 600 11px/1.2 var(--condensada);
   letter-spacing: 1.3px;
   text-transform: uppercase;
   color: var(--tinta-3);
@@ -329,7 +329,7 @@ button.chico { padding: 5px 9px; font-size: 11px; letter-spacing: 1px; }
   border: 0;
   background: none;
   color: var(--rojo);
-  font: 600 10px/1 var(--condensada);
+  font: 600 11px/1 var(--condensada);
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -344,7 +344,7 @@ button.chico { padding: 5px 9px; font-size: 11px; letter-spacing: 1px; }
 
 .desc { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .desc label {
-  font: 600 10px/1 var(--condensada);
+  font: 600 11px/1 var(--condensada);
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--tinta-2);
@@ -409,7 +409,7 @@ button.chico { padding: 5px 9px; font-size: 11px; letter-spacing: 1px; }
   gap: 16px;
   flex-wrap: wrap;
   color: var(--tinta-3);
-  font: 600 10px/1 var(--condensada);
+  font: 600 11px/1 var(--condensada);
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -420,7 +420,7 @@ kbd {
   padding: 2px 4px;
   border: var(--linea);
   background: var(--papel-hueso);
-  font: 700 10px/1.3 var(--mono);
+  font: 700 11px/1.3 var(--mono);
   text-align: center;
 }
 
@@ -441,7 +441,7 @@ th {
   position: sticky; top: 0; z-index: 1;
   background: var(--papel-banda);
   border-bottom: var(--linea);
-  font: 700 10px/1.3 var(--condensada);
+  font: 700 11px/1.3 var(--condensada);
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--tinta-2);
@@ -457,7 +457,7 @@ td.rojo { color: var(--rojo); }
   display: inline-block;
   padding: 1px 6px;
   border: 1px solid currentColor;
-  font: 700 9px/1.6 var(--condensada);
+  font: 700 11px/1.6 var(--condensada);
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -481,7 +481,7 @@ td.rojo { color: var(--rojo); }
 .kpi:last-child { border-right: 0; }
 .kpi span {
   display: block;
-  font: 700 10px/1.3 var(--condensada);
+  font: 700 11px/1.3 var(--condensada);
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--tinta-2);
@@ -528,14 +528,14 @@ td.rojo { color: var(--rojo); }
   background: var(--tinta);
 }
 .barra-dia small {
-  font: 600 10px/1 var(--mono);
+  font: 600 11px/1 var(--mono);
   color: var(--tinta-2);
   padding-bottom: 3px;
 }
 
 .titulo-seccion {
   margin: 0;
-  font: 700 10px/1.3 var(--condensada);
+  font: 700 11px/1.3 var(--condensada);
   letter-spacing: 1.6px;
   text-transform: uppercase;
   color: var(--tinta-2);
@@ -549,7 +549,7 @@ td.rojo { color: var(--rojo); }
   border-radius: 0;
   padding: 5px 12px;
   cursor: pointer;
-  font: 700 10px/1.4 var(--condensada);
+  font: 700 11px/1.4 var(--condensada);
   letter-spacing: 1.2px;
   text-transform: uppercase;
   color: var(--tinta-2);
@@ -559,7 +559,7 @@ td.rojo { color: var(--rojo); }
 
 .cuadre { display: grid; gap: 7px; padding: 12px 0 0; }
 .cuadre label {
-  font: 700 10px/1 var(--condensada);
+  font: 700 11px/1 var(--condensada);
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--tinta-2);
@@ -604,7 +604,7 @@ dialog::backdrop { background: rgba(23, 20, 15, 0.55); }
 .campos { display: grid; gap: 10px; }
 .campo { display: grid; gap: 4px; }
 .campo label {
-  font: 700 10px/1 var(--condensada);
+  font: 700 11px/1 var(--condensada);
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--tinta-2);
