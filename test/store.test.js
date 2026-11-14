@@ -4,8 +4,8 @@ const assert = require('node:assert');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { crearStore } = require('../src/store');
-const { sembrar } = require('../src/seed');
+const { crearStore } = require('../src/core/store');
+const { sembrar } = require('../src/core/seed');
 
 const archivoNuevo = () => path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'bodega-')), 'datos.json');
 const hoy = () => {

@@ -9,7 +9,7 @@
 <body>
   <aside class="lateral">
     <div class="marca">
-      <strong>Bodega</strong>
+      <strong id="marca-nombre">Bodega</strong>
       <span>stock y ventas</span>
     </div>
     <nav id="tabs">
@@ -29,42 +29,62 @@
     <section class="vista activa" id="vista-caja">
       <header class="barra">
         <h1>Caja</h1>
-        <input id="buscar" type="search" placeholder="Buscar producto o escanear código…" autocomplete="off">
-        <div class="acciones">
-          <select id="cliente" title="Cliente de la venta"></select>
+        <div class="buscador">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+          <input id="buscar" type="search" placeholder="Buscar producto o escanear código" autocomplete="off" spellcheck="false">
         </div>
+        <select id="cliente" title="Cliente de la venta" aria-label="Cliente de la venta"></select>
       </header>
+
       <div class="dos">
         <div id="grilla" class="grilla"></div>
-        <div class="ticket">
+
+        <aside class="ticket">
           <div class="fila-titulo">
             <h2>Venta</h2>
-            <button id="btn-esperas" class="secundario chico" hidden>En espera</button>
+            <div class="fila-titulo-acciones">
+              <button id="btn-esperas" class="secundario chico" hidden>En espera</button>
+              <button id="limpiar" class="secundario chico" disabled>Limpiar</button>
+            </div>
           </div>
+
           <div id="carrito" class="carrito"></div>
-          <div class="desc">
-            <label for="descuento">Descuento ($)</label>
-            <input id="descuento" type="number" min="0" step="100" value="0">
+
+          <div class="resumen">
+            <div class="desc">
+              <label for="descuento">Descuento</label>
+              <div class="moneda"><span>$</span><input id="descuento" type="number" min="0" step="100" value="0" inputmode="numeric"></div>
+            </div>
+            <div class="total-fila" id="subtotal-fila" hidden>
+              <span>Subtotal</span><span id="subtotal">$0</span>
+            </div>
+            <div class="total-fila descuento" id="descuento-fila" hidden>
+              <span>Descuento</span><span id="descuento-monto">$0</span>
+            </div>
+            <div class="total"><span>Total</span><strong id="total">$0</strong></div>
           </div>
-          <div class="total-fila" id="subtotal-fila" hidden>
-            <span>Subtotal</span><span id="subtotal">$0</span>
-          </div>
-          <div class="total-fila descuento" id="descuento-fila" hidden>
-            <span>Descuento</span><span id="descuento-monto">$0</span>
-          </div>
-          <div class="total"><span>Total</span><strong id="total">$0</strong></div>
-          <select id="medio">
+
+          <select id="medio" aria-label="Medio de pago">
             <option>Efectivo</option>
             <option>Débito</option>
             <option>Crédito</option>
             <option>Transferencia</option>
             <option>QR</option>
           </select>
+
           <div class="fila-botones">
             <button id="esperar" class="secundario">Dejar en espera</button>
             <button id="cobrar" class="primario">Cobrar</button>
           </div>
-        </div>
+        </aside>
+      </div>
+
+      <div class="atajos">
+        <span><kbd>F1</kbd> buscar</span>
+        <span><kbd>F2</kbd> cobrar</span>
+        <span><kbd>F3</kbd> dejar en espera</span>
+        <span><kbd>F4</kbd> ventas en espera</span>
+        <span><kbd>Esc</kbd> limpiar</span>
       </div>
     </section>
 
@@ -72,7 +92,7 @@
       <header class="barra">
         <h1>Productos</h1>
         <div class="acciones">
-          <input id="buscar-producto" type="search" placeholder="Filtrar…" autocomplete="off">
+          <input id="buscar-producto" type="search" placeholder="Filtrar por nombre, código o categoría" autocomplete="off">
           <button id="nuevo-producto" class="primario">Nuevo producto</button>
         </div>
       </header>
@@ -139,6 +159,6 @@
   </dialog>
   <div id="aviso" class="aviso"></div>
 
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
