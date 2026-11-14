@@ -1,11 +1,13 @@
 'use strict';
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, dialog } = require('electron');
 const path = require('node:path');
 const fs = require('node:fs');
 const { crearStore } = require('./store');
 const { sembrar } = require('./seed');
+const { htmlTicket } = require('./ticket');
 
 let store;
+let ventana;
 const datos = () => path.join(app.getPath('userData'), 'bodega.json');
 
 // Un respaldo por día, se conservan los últimos 7. Sin esto, un archivo roto = ventas perdidas.
@@ -49,6 +51,7 @@ function crearVentana() {
     shell.openExternal(url);
     return { action: 'deny' };
   });
+  return win;
 }
 
 const mutar = (fn) => (event, ...args) => {
@@ -60,18 +63,52 @@ const mutar = (fn) => (event, ...args) => {
   }
 };
 
+// Comprobante en su propia ventana: se imprime con el diálogo del sistema (58/80 mm).
+function verTicket(ventaId) {
+  const st = store.estado();
+  const venta = st.ventas.find((v) => v.id === ventaId);
+  if (!venta) return { ok: false, error: 'Venta inexistente' };
+  const cliente = st.clientes.find((c) => c.id === venta.clienteId) || null;
+  const html = htmlTicket(venta, st.negocio, cliente);
+  const win = new BrowserWindow({
+    width: 420, height: 760, title: `Comprobante #${venta.id}`,
+    backgroundColor: '#ffffff', autoHideMenuBar: true,
+    webPreferences: { sandbox: true, contextIsolation: true },
+  });
+  win.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`);
+  return { ok: true, data: true };
+}
+
 app.whenReady().then(() => {
   store = crearStore(datos());
   sembrar(store);
   respaldar();
 
   ipcMain.handle('estado', () => ({ ok: true, data: store.estado() }));
+
+  ipcMain.handle('negocio', mutar((n) => store.negocio(n)));
   ipcMain.handle('producto', mutar((p) => store.producto(p)));
   ipcMain.handle('borrarProducto', mutar((id) => store.borrarProducto(id)));
-  ipcMain.handle('vender', mutar((items, medio) => store.vender(items, medio)));
+  ipcMain.handle('cliente', mutar((c) => store.cliente(c)));
+  ipcMain.handle('borrarCliente', mutar((id) => store.borrarCliente(id)));
+  ipcMain.handle('vender', mutar((items, medio, opciones) => store.vender(items, medio, opciones)));
+  ipcMain.handle('anular', mutar((id, motivo) => store.anular(id, motivo)));
   ipcMain.handle('ajustar', mutar((id, c, m) => store.ajustar(id, c, m)));
   ipcMain.handle('proveedor', mutar((p) => store.proveedor(p)));
   ipcMain.handle('compra', mutar((prov, items) => store.compra(prov, items)));
+  ipcMain.handle('esperar', mutar((items, opciones) => store.esperar(items, opciones)));
+  ipcMain.handle('borrarEspera', mutar((id) => store.borrarEspera(id)));
+  ipcMain.handle('guardarCierre', mutar((fecha, contado) => store.guardarCierre(fecha, contado)));
+
+  ipcMain.handle('recuperarEspera', (event, id) => {
+    try {
+      const espera = store.recuperarEspera(id);
+      return { ok: true, data: store.estado(), espera };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
+  });
+
   ipcMain.handle('resumen', (event, desde, hasta) => {
     try {
       return { ok: true, data: store.resumen(desde, hasta) };
@@ -80,8 +117,64 @@ app.whenReady().then(() => {
     }
   });
 
-  crearVentana();
-  app.on('activate', () => { if (!BrowserWindow.getAllWindows().length) crearVentana(); });
+  ipcMain.handle('cierre', (event, fecha) => {
+    try {
+      return { ok: true, data: store.cierre(fecha) };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
+  });
+
+  ipcMain.handle('verTicket', (event, ventaId) => verTicket(ventaId));
+
+  ipcMain.handle('exportarCSV', async (event, tipo, desde, hasta) => {
+    try {
+      const nombre = tipo === 'productos' ? 'productos.csv' : `ventas-${desde}-a-${hasta}.csv`;
+      const { canceled, filePath } = await dialog.showSaveDialog(ventana, {
+        title: 'Guardar CSV',
+        defaultPath: path.join(app.getPath('documents'), nombre),
+        filters: [{ name: 'CSV', extensions: ['csv'] }],
+      });
+      if (canceled || !filePath) return { ok: false, cancelado: true };
+      fs.writeFileSync(filePath, tipo === 'productos' ? store.csvProductos() : store.csvVentas(desde, hasta));
+      return { ok: true, data: filePath };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
+  });
+
+  ipcMain.handle('respaldarArchivo', async () => {
+    try {
+      const { canceled, filePath } = await dialog.showSaveDialog(ventana, {
+        title: 'Guardar respaldo',
+        defaultPath: path.join(app.getPath('documents'), `bodega-respaldo-${new Date().toISOString().slice(0, 10)}.json`),
+        filters: [{ name: 'Respaldo Bodega', extensions: ['json'] }],
+      });
+      if (canceled || !filePath) return { ok: false, cancelado: true };
+      store.respaldar(filePath);
+      return { ok: true, data: filePath };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
+  });
+
+  ipcMain.handle('restaurarArchivo', async () => {
+    try {
+      const { canceled, filePaths } = await dialog.showOpenDialog(ventana, {
+        title: 'Restaurar respaldo',
+        properties: ['openFile'],
+        filters: [{ name: 'Respaldo Bodega', extensions: ['json'] }],
+      });
+      if (canceled || !filePaths.length) return { ok: false, cancelado: true };
+      store.restaurar(fs.readFileSync(filePaths[0], 'utf8'));
+      return { ok: true, data: store.estado() };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
+  });
+
+  ventana = crearVentana();
+  app.on('activate', () => { if (!BrowserWindow.getAllWindows().length) ventana = crearVentana(); });
 });
 
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

@@ -8,7 +8,10 @@ const { crearStore } = require('../src/store');
 const { sembrar } = require('../src/seed');
 
 const archivoNuevo = () => path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'bodega-')), 'datos.json');
-const hoy = () => new Date().toISOString().slice(0, 10);
+const hoy = () => {
+  const f = new Date();
+  return `${f.getFullYear()}-${String(f.getMonth() + 1).padStart(2, '0')}-${String(f.getDate()).padStart(2, '0')}`;
+};
 
 test('vender descuenta stock y suma al resumen del día', () => {
   const s = crearStore(archivoNuevo());
@@ -63,7 +66,8 @@ test('el demo carga 60 productos y sus ventas cuadran', () => {
   assert.equal(s.estado().productos.length, 60);
   const st = s.estado();
   const sumaVentas = st.ventas.reduce((t, v) => t + v.total, 0);
-  const desde = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
+  const d = new Date(Date.now() - 7 * 864e5);
+  const desde = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   assert.equal(s.resumen(desde, hoy()).total, sumaVentas);
   assert.ok(st.ventas.length > 20);
   assert.equal(st.compras.length, 3);

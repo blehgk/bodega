@@ -1,17 +1,48 @@
 {
   "name": "bodega",
   "productName": "Bodega",
-  "version": "0.1.0",
-  "description": "Gestor de stock, ventas y proveedores para kioscos y almacenes",
+  "version": "0.2.0",
+  "description": "Gestor de stock y ventas para almacenes y kioscos chilenos — offline, sin servidor",
   "main": "src/main.js",
   "author": "Zeta",
   "license": "MIT",
   "private": true,
   "scripts": {
     "start": "electron .",
-    "test": "node --test test/"
+    "test": "node --test test/",
+    "dist:linux": "electron-builder --linux AppImage",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "cl.bodega.app",
+    "productName": "Bodega",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Office"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
   },
   "devDependencies": {
-    "electron": "^45.0.0"
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0"
   }
 }

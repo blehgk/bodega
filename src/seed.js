@@ -64,7 +64,8 @@ const CATALOGO = [
   ['Dobladitas 6u', 'Panadería', 90000, 140000, 6, 3],
 ];
 
-const MEDIOS = ['Efectivo', 'Débito', 'Crédito', 'Transferencia', 'QR'];
+// Ponderado: en un almacén el efectivo sigue siendo el medio más usado.
+const MEDIOS = ['Efectivo', 'Efectivo', 'Efectivo', 'Débito', 'Débito', 'Crédito', 'Transferencia', 'QR'];
 
 // PRNG determinista: el demo se ve igual en cada máquina.
 function prng(semilla) {
@@ -82,6 +83,8 @@ function sembrar(store) {
     store.producto({ nombre, categoria, codigo: `779000${String(i).padStart(7, '0')}`, costo, precio, stock, stockMinimo });
   });
   ['Distribuidora Los Andes', 'Mayorista Central', 'Comercial San Bernardo'].forEach((nombre, i) => store.proveedor({ nombre, telefono: `+56 9 4000 000${i + 1}` }));
+  [['María Soto', '+56 9 8123 4567'], ['Pedro Ramírez', '+56 9 7654 3210'], ['Rosa Fuentes', '+56 9 6321 0987']]
+    .forEach(([nombre, telefono]) => store.cliente({ nombre, telefono }));
 
   const azar = prng(20261114);
   const productos = store.estado().productos;
@@ -102,10 +105,14 @@ function sembrar(store) {
   for (let dias = 6; dias >= 0; dias--) {
     const ventasDelDia = 6 + Math.floor(azar() * 7);
     for (let v = 0; v < ventasDelDia; v++) {
-      const hora = 8 + Math.floor(azar() * 13);
       const fecha = new Date();
-      fecha.setDate(fecha.getDate() - dias);
-      fecha.setHours(hora, Math.floor(azar() * 60), 0, 0);
+      if (dias === 0) {
+        // Hoy: últimas ~3 horas, para que el demo nunca muestre ventas del futuro.
+        fecha.setTime(Date.now() - (5 + Math.floor(azar() * 170)) * 60000);
+      } else {
+        fecha.setDate(fecha.getDate() - dias);
+        fecha.setHours(8 + Math.floor(azar() * 13), Math.floor(azar() * 60), 0, 0);
+      }
       const items = [];
       const lineas = 1 + Math.floor(azar() * 4);
       for (let l = 0; l < lineas; l++) {
@@ -116,7 +123,7 @@ function sembrar(store) {
         if (ya) ya.cantidad += cantidad;
         else items.push({ productoId: p.id, cantidad });
       }
-      if (items.length) store.vender(items, MEDIOS[Math.floor(azar() * MEDIOS.length)], fecha.toISOString());
+      if (items.length) store.vender(items, MEDIOS[Math.floor(azar() * MEDIOS.length)], { fecha: fecha.toISOString() });
     }
   }
   return true;

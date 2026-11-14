@@ -14,6 +14,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { height: 100%; }
 body {
   margin: 0;
@@ -176,7 +177,9 @@ tbody tr:last-child td { border-bottom: 0; }
 .kpi span { display: block; color: var(--tenue); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
 .kpi strong { font-size: 24px; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
 #reporte { display: flex; flex-direction: column; gap: 16px; padding: 16px; overflow: auto; }
-.grafico { display: flex; align-items: flex-end; gap: 8px; height: 160px; padding-top: 8px; }
+/* Dentro de un panel con scroll, las columnas no deben estirarse ni recortarse. */
+#reporte .dos, #cierre .dos { flex: 0 0 auto; min-height: auto; }
+.grafico { display: flex; align-items: flex-end; gap: 8px; height: 160px; flex: 0 0 auto; padding-top: 8px; }
 .barra-dia { flex: 1; max-width: 64px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; height: 100%; }
 .barra-dia i { display: block; width: 100%; background: linear-gradient(180deg, #34d399, #1f7a5c); border-radius: 6px 6px 2px 2px; min-height: 2px; }
 .barra-dia small { color: var(--tenue); font-size: 10px; }
@@ -217,3 +220,31 @@ dialog::backdrop { background: rgba(4, 7, 10, 0.65); }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: #2a333e; border-radius: 10px; border: 2px solid var(--bg); }
 ::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------- caja: descuento, espera, cliente ---------- */
+.fila-titulo { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+#cliente { max-width: 220px; }
+.desc { display: flex; align-items: center; gap: 10px; }
+.desc label { flex: 1; color: var(--tenue); font-size: 12px; }
+.desc input { width: 110px; text-align: right; font-variant-numeric: tabular-nums; }
+.total-fila { display: flex; justify-content: space-between; font-size: 13px; color: var(--tenue); font-variant-numeric: tabular-nums; }
+.total-fila.descuento span:last-child { color: var(--alerta); }
+.fila-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fila-botones .primario { padding: 12px; font-size: 15px; }
+.esperas { display: grid; gap: 8px; max-height: 50vh; overflow: auto; }
+
+/* ---------- reportes y cierre ---------- */
+.kpis.chicos { grid-template-columns: repeat(4, 1fr); }
+.kpis.chicos .kpi strong { font-size: 18px; }
+tr.anulada td { opacity: 0.45; text-decoration: line-through; }
+td.rojo { color: var(--peligro); }
+.cuadre { display: grid; gap: 8px; padding: 14px; }
+.cuadre label { font-size: 12px; color: var(--tenue); }
+.cuadre input { text-align: right; font-variant-numeric: tabular-nums; font-size: 18px; }
+.diferencia { padding: 9px 11px; border-radius: 8px; font-size: 13px; background: #1a222b; color: var(--tenue); }
+.diferencia.ok { background: var(--acento-tenue); color: var(--acento); }
+.diferencia.bajo { background: #33260c; color: var(--alerta); }
+.diferencia.cero { background: #33161a; color: var(--peligro); }
+.check { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.check input { width: 16px; height: 16px; }
+
